@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import VenturaCountyMap from '@/components/VenturaCountyMap';
 
 // Define proper types for form events
 type FormInputEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
@@ -375,10 +376,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden h-96 relative">
-            {/* You'll add the actual map image later */}
-            <div className="bg-blue-50 w-full h-full"></div>
-          </div>
+          <VenturaCountyMap />
         </div>
       </section>
     </>

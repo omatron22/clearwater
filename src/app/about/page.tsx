@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaSwimmingPool, FaWater, FaLeaf, FaHandshake } from 'react-icons/fa';
+import VenturaCountyMap from '@/components/VenturaCountyMap';
 
 export default function AboutPage() {
   // Service areas in Ventura County 
@@ -160,10 +161,7 @@ export default function AboutPage() {
             </div>
             
             <div className="bg-white rounded-lg shadow-xl overflow-hidden">
-              <div className="relative h-96">
-                {/* You'll add the actual map image later */}
-                <div className="bg-blue-50 w-full h-full" />
-              </div>
+            <VenturaCountyMap />
               <div className="p-8">
                 <h3 className="text-xl font-bold mb-4 text-blue-900">Areas We Serve:</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
