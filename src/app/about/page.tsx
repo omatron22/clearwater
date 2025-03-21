@@ -3,25 +3,39 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaSwimmingPool, FaWater, FaLeaf, FaHandshake } from 'react-icons/fa';
-import Container from '@/components/Container';
-import SectionHeader from '@/components/SectionHeader';
-import ResponsiveImage from '@/components/ResponsiveImage';
-import HeroSection from '@/components/HeroSection';
-import { serviceAreas } from '@/utils/config';
 
 export default function AboutPage() {
+  // Service areas in Ventura County 
+  const serviceAreas = [
+    'Ventura', 'Oxnard', 'Camarillo', 'Thousand Oaks', 
+    'Simi Valley', 'Moorpark', 'Ojai', 'Santa Paula',
+    'Fillmore', 'Port Hueneme', 'Newbury Park', 'Oak Park'
+  ];
+
   return (
     <>
       {/* Hero Section */}
-      <HeroSection
-        title="About Us"
-        subtitle="Meet the team behind Clear Water Pool Service"
-        imageCategory="hero"
-      />
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-24">
+        {/* Background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/50 z-10" />
+          {/* You'll add the actual image later */}
+          <div className="w-full h-full bg-blue-700" />
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center text-white">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">About Us</h1>
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+              Meet the team behind Clear Water Pool Service
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* About Content */}
       <section className="py-16 md:py-24">
-        <Container>
+        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -30,13 +44,8 @@ export default function AboutPage() {
               viewport={{ once: true }}
             >
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
-                <ResponsiveImage
-                  src="/images/pools/team/owner.jpg"
-                  alt="Roman Espinoza, Owner of Clear Water Pool Service"
-                  category="team"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
+                {/* You'll add the actual image later */}
+                <div className="bg-blue-100 w-full h-full" />
               </div>
             </motion.div>
             
@@ -49,12 +58,12 @@ export default function AboutPage() {
             >
               <h2 className="text-3xl font-bold mb-4 text-blue-900">Our Story</h2>
               <p className="text-lg text-gray-600 mb-6">
-                Clear Water Pool Service was founded by Roman Espinoza with a simple mission: to provide exceptional pool maintenance 
+                Clear Water Pool Service was founded with a simple mission: to provide exceptional pool maintenance 
                 services that allow pool owners to enjoy their pools without the hassle of upkeep.
               </p>
               <p className="text-lg text-gray-600 mb-6">
-                After years of working in the pool industry, Roman noticed that many pool service companies were taking 
-                on too many clients and not providing the personalized attention each pool deserves. He also saw that 
+                After years of working in the pool industry, we noticed that many pool service companies were taking 
+                on too many clients and not providing the personalized attention each pool deserves. We also saw that 
                 many companies were trying to do both maintenance and repairs, often without the proper licensing for repair work.
               </p>
               <p className="text-lg text-gray-600">
@@ -67,11 +76,12 @@ export default function AboutPage() {
 
           {/* Our Values */}
           <div className="py-16">
-            <SectionHeader
-              title="Our Values"
-              subtitle="The principles that guide everything we do"
-              centered={true}
-            />
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Our Values</h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                The principles that guide everything we do
+              </p>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <motion.div
@@ -142,31 +152,29 @@ export default function AboutPage() {
           
           {/* Service Area */}
           <div className="py-16">
-            <SectionHeader
-              title="Our Service Area"
-              subtitle="Clear Water Pool Service proudly serves pool owners throughout Ventura County"
-              centered={true}
-            />
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Our Service Area</h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Clear Water Pool Service proudly serves pool owners throughout Ventura County
+              </p>
+            </div>
             
             <div className="bg-white rounded-lg shadow-xl overflow-hidden">
               <div className="relative h-96">
-                <ResponsiveImage
-                  src="/images/pools/misc/ventura-county-map.jpg"
-                  alt="Ventura County service area map"
-                  category="map"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
+                {/* You'll add the actual map image later */}
+                <div className="bg-blue-50 w-full h-full" />
               </div>
               <div className="p-8">
                 <h3 className="text-xl font-bold mb-4 text-blue-900">Areas We Serve:</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {/* Simple grid layout for service areas */}
                   {serviceAreas.map((area, index) => (
                     <div key={index} className="col-span-1">
-                      <ul className="space-y-2">
-                        <li>• {area}</li>
-                      </ul>
+                      <div className="space-y-2">
+                        <div className="flex items-start">
+                          <span className="mr-2">•</span> 
+                          <span>{area}</span>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -176,12 +184,12 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* Mission Statement */}
       <section className="py-16 bg-blue-50">
-        <Container>
+        <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-blue-900">Our Mission</h2>
             <div className="text-xl text-gray-600 bg-white p-8 rounded-xl shadow-md relative">
@@ -201,12 +209,12 @@ export default function AboutPage() {
               </svg>
             </div>
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-16 bg-blue-900 text-white">
-        <Container>
+        <div className="container mx-auto px-4">
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Let&apos;s Work Together</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
@@ -219,7 +227,7 @@ export default function AboutPage() {
               Get Your Free Quote
             </Link>
           </div>
-        </Container>
+        </div>
       </section>
     </>
   );

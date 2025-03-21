@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { companyInfo } from '@/utils/config';
 
 // Configure Inter font
 const inter = Inter({
@@ -14,10 +13,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: `${companyInfo.name} | ${companyInfo.tagline}`,
-    template: `%s | ${companyInfo.name}`,
+    default: 'Clear Water Pool Service | Professional Pool Maintenance',
+    template: '%s | Clear Water Pool Service',
   },
-  description: companyInfo.description,
+  description: 'Professional pool maintenance services in Ventura County. We focus exclusively on maintaining your pool in pristine condition.',
   keywords: [
     'pool service',
     'pool maintenance',
@@ -27,21 +26,6 @@ export const metadata: Metadata = {
     'pool water treatment',
     'Clear Water Pool Service',
   ],
-  authors: [
-    {
-      name: companyInfo.owner,
-      url: '/',
-    },
-  ],
-  creator: companyInfo.name,
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: '/',
-    title: companyInfo.name,
-    description: companyInfo.description,
-    siteName: companyInfo.name,
-  },
 };
 
 export default function RootLayout({

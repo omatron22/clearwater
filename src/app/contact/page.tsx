@@ -1,14 +1,12 @@
-// src/app/contact/page.tsx
 'use client';
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
-import Container from '@/components/Container';
-import HeroSection from '@/components/HeroSection';
-import SectionHeader from '@/components/SectionHeader';
-import ResponsiveImage from '@/components/ResponsiveImage';
-import { contactInfo } from '@/utils/config';
+
+// Define proper types for form events
+type FormInputEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
+type FormSubmitEvent = React.FormEvent<HTMLFormElement>;
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -24,7 +22,8 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  // Add proper type annotation for the event parameter
+  const handleChange = (e: FormInputEvent) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -32,7 +31,8 @@ export default function ContactPage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Add proper type annotation for the event parameter
+  const handleSubmit = (e: FormSubmitEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
@@ -56,15 +56,27 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero Section */}
-      <HeroSection
-        title="Contact Us"
-        subtitle="Request a quote or get in touch with any questions"
-        imageCategory="hero"
-      />
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-24">
+        {/* Background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/50 z-10" />
+          {/* You'll add the actual image later */}
+          <div className="w-full h-full bg-blue-700" />
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center text-white">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+              Request a quote or get in touch with any questions
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Contact Info + Form Section */}
       <section className="py-16 md:py-24">
-        <Container>
+        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Information */}
             <motion.div
@@ -83,8 +95,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-blue-900">Phone</h3>
-                      <p className="text-gray-600 mt-1">{contactInfo.phone}</p>
-                      <p className="text-gray-500 text-sm mt-1">{contactInfo.availableHours}</p>
+                      <p className="text-gray-600 mt-1">(805) 766-3299</p>
+                      <p className="text-gray-500 text-sm mt-1">Available Monday-Friday, 8am-6pm</p>
                     </div>
                   </div>
                   
@@ -94,7 +106,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-blue-900">Email</h3>
-                      <p className="text-gray-600 mt-1">{contactInfo.email}</p>
+                      <p className="text-gray-600 mt-1">clearwater3317@yahoo.com</p>
                       <p className="text-gray-500 text-sm mt-1">We&apos;ll respond within 24 hours</p>
                     </div>
                   </div>
@@ -105,7 +117,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-blue-900">Service Area</h3>
-                      <p className="text-gray-600 mt-1">{contactInfo.serviceArea}</p>
+                      <p className="text-gray-600 mt-1">Ventura County, CA</p>
                       <p className="text-gray-500 text-sm mt-1">Serving all communities in Ventura County</p>
                     </div>
                   </div>
@@ -125,7 +137,7 @@ export default function ContactPage() {
                     <svg className="w-5 h-5 text-green-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
                     </svg>
-                    <span>Locally owned and operated by Roman Espinoza</span>
+                    <span>Locally owned and operated</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-green-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
@@ -293,17 +305,18 @@ export default function ContactPage() {
               )}
             </motion.div>
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* FAQ Section */}
       <section className="py-16 bg-blue-50">
-        <Container>
-          <SectionHeader
-            title="Frequently Asked Questions"
-            subtitle="Have questions about our services? Find quick answers below"
-            centered={true}
-          />
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Frequently Asked Questions</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Have questions about our services? Find quick answers below
+            </p>
+          </div>
 
           <div className="max-w-3xl mx-auto">
             <div className="space-y-6">
@@ -349,28 +362,24 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* Map Section */}
       <section className="py-16">
-        <Container>
-          <SectionHeader
-            title="Our Service Area"
-            subtitle="Proudly serving pool owners throughout Ventura County"
-            centered={true}
-          />
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Our Service Area</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Proudly serving pool owners throughout Ventura County
+            </p>
+          </div>
 
           <div className="bg-white rounded-xl shadow-lg overflow-hidden h-96 relative">
-            <ResponsiveImage
-              src="/images/pools/misc/ventura-county-map.jpg"
-              alt="Map of Ventura County Service Area"
-              category="map"
-              fill
-              style={{ objectFit: 'cover' }}
-            />
+            {/* You'll add the actual map image later */}
+            <div className="bg-blue-50 w-full h-full"></div>
           </div>
-        </Container>
+        </div>
       </section>
     </>
   );

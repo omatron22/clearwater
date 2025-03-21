@@ -1,271 +1,335 @@
 'use client';
 
-import HeroSection from '@/components/HeroSection';
-import Container from '@/components/Container';
-import ServiceCard from '@/components/ServiceCard';
-import TestimonialCard from '@/components/TestimonialCard';
-import BeforeAfterComparison from '@/components/BeforeAfterComparison';
-import SectionHeader from '@/components/SectionHeader';
-import Button from '@/components/Button';
-import Card from '@/components/Card';
-import { services, testimonials, beforeAfterExamples } from '@/utils/config';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FaShieldAlt, FaSwimmingPool, FaClock, FaUserTie } from 'react-icons/fa';
+import { FaWater, FaClipboardCheck, FaRegClock, FaUserTie, FaPhone } from 'react-icons/fa';
 
 export default function Home() {
-  // Get the first before/after example
-  const beforeAfterExample = beforeAfterExamples[0];
-
-  // Animation variants for staggered animations
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
   return (
     <>
       {/* Hero Section */}
-      <HeroSection
-        title="Crystal Clear Pools, Every Time"
-        subtitle="Professional pool maintenance services in Ventura County"
-        imageCategory="hero"
-        height="min-h-screen"
-        textAlign="left"
-        titleSize="text-5xl md:text-6xl lg:text-7xl"
-      >
-        <div className="flex flex-col sm:flex-row gap-4 mt-10">
-          <Button
-            href="/contact"
-            variant="primary"
-            size="lg"
-          >
-            Request a Quote
-          </Button>
-          <Button
-            href="/services"
-            variant="white"
-            size="lg"
-          >
-            View Services
-          </Button>
+      <section className="relative h-screen flex items-center">
+        {/* Background Image - Replace with your actual pool image */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/50 z-10" />
+          {/* You'll add the actual image later */}
+          <div className="w-full h-full bg-blue-700" /> 
         </div>
-      </HeroSection>
+        
+        <div className="container mx-auto px-4 relative z-20">
+          <div className="max-w-2xl text-white">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+            >
+              Crystal Clear Pools, Every Time
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-xl mb-8 text-blue-50"
+            >
+              Professional pool maintenance services throughout Ventura County.
+              We focus exclusively on maintenance so you can enjoy your pool worry-free.
+            </motion.p>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <Link 
+                href="/contact" 
+                className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-md text-lg font-medium transition duration-300 text-center"
+              >
+                Get a Free Quote
+              </Link>
+              <Link 
+                href="/services" 
+                className="bg-white hover:bg-blue-50 text-blue-600 py-3 px-8 rounded-md text-lg font-medium transition duration-300 text-center"
+              >
+                Our Services
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-      {/* Why Choose Us */}
-      <section className="py-16 md:py-24 bg-sky-50">
-        <Container>
-          <SectionHeader
-            title="Why Choose Us"
-            subtitle="Clear Water Pool Service is dedicated to making your pool maintenance worry-free"
-            centered={true}
-            withLine={true}
-          />
+      {/* Why Choose Us Section */}
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Why Choose Clear Water Pool Service</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              We focus exclusively on pool maintenance, not repairs, to give you the best service possible
+            </p>
+          </div>
 
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
-          >
-            <Card animate padding="p-8" className="text-center group hover-card-effect">
-              <div className="bg-sky-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-sky-200 transition-colors">
-                <FaShieldAlt className="text-sky-600 text-2xl" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Feature 1 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            >
+              <div className="text-blue-600 mb-4">
+                <FaWater className="w-6 h-6" />
               </div>
-              <h3 className="font-bold text-xl mb-3 text-sky-900">Expertise</h3>
+              <h3 className="text-xl font-bold mb-3 text-blue-900">Expertise</h3>
               <p className="text-gray-600">
                 Our technicians are trained in the latest pool maintenance techniques and water chemistry.
               </p>
-            </Card>
+            </motion.div>
 
-            <Card animate delay={0.2} padding="p-8" className="text-center group hover-card-effect">
-              <div className="bg-sky-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-sky-200 transition-colors">
-                <FaSwimmingPool className="text-sky-600 text-2xl" />
+            {/* Feature 2 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            >
+              <div className="text-blue-600 mb-4">
+                <FaClipboardCheck className="w-6 h-6" />
               </div>
-              <h3 className="font-bold text-xl mb-3 text-sky-900">Quality</h3>
+              <h3 className="text-xl font-bold mb-3 text-blue-900">Quality</h3>
               <p className="text-gray-600">
                 We never cut corners and ensure every pool receives the thorough attention it deserves.
               </p>
-            </Card>
+            </motion.div>
 
-            <Card animate delay={0.4} padding="p-8" className="text-center group hover-card-effect">
-              <div className="bg-sky-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-sky-200 transition-colors">
-                <FaClock className="text-sky-600 text-2xl" />
+            {/* Feature 3 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            >
+              <div className="text-blue-600 mb-4">
+                <FaRegClock className="w-6 h-6" />
               </div>
-              <h3 className="font-bold text-xl mb-3 text-sky-900">Reliability</h3>
+              <h3 className="text-xl font-bold mb-3 text-blue-900">Reliability</h3>
               <p className="text-gray-600">
                 You can count on us to show up as scheduled and provide consistent service every time.
               </p>
-            </Card>
+            </motion.div>
 
-            <Card animate delay={0.6} padding="p-8" className="text-center group hover-card-effect">
-              <div className="bg-sky-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-sky-200 transition-colors">
-                <FaUserTie className="text-sky-600 text-2xl" />
+            {/* Feature 4 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            >
+              <div className="text-blue-600 mb-4">
+                <FaUserTie className="w-6 h-6" />
               </div>
-              <h3 className="font-bold text-xl mb-3 text-sky-900">Personalized</h3>
+              <h3 className="text-xl font-bold mb-3 text-blue-900">Personalized</h3>
               <p className="text-gray-600">
                 Every pool is unique, so we customize our service to fit the specific needs of your pool.
               </p>
-            </Card>
-          </motion.div>
-        </Container>
+            </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* Services Overview */}
-      <section className="py-16 md:py-24 relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute -top-24 -right-24 w-64 h-64 bg-sky-100 rounded-full opacity-70"></div>
-        <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-sky-100 rounded-full opacity-50"></div>
-
-        <Container className="relative z-10">
-          <SectionHeader
-            title="Our Services"
-            subtitle="We focus exclusively on pool maintenance to keep your pool in pristine condition year-round"
-            centered={true}
-            withLine={true}
-          />
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Our Services</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              We focus exclusively on pool maintenance to keep your pool in pristine condition year-round
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <ServiceCard
-              title={services.regular.title}
-              description={services.regular.description}
-              icon="FaWater"
-              features={services.regular.features.slice(0, 4)}
-              delay={0}
-            />
-            
-            <ServiceCard
-              title={services.seasonal.title}
-              description={services.seasonal.description}
-              icon="FaLeaf"
-              features={services.seasonal.features.slice(0, 4)}
-              delay={0.2}
-            />
-            
-            <ServiceCard
-              title={services.oneTime.title}
-              description={services.oneTime.description}
-              icon="FaCalendarAlt"
-              features={services.oneTime.features.slice(0, 4)}
-              delay={0.4}
-            />
+            {/* Service 1 */}
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="p-8">
+                <div className="text-blue-600 mb-4">
+                  <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.41,3a37.73,37.73,0,0,1,.29,8,.69.69,0,0,0,.38.65c1.13.54,4.11,1.95,5.44,2.79.7.45.68,1,.68,1.78V22.1c0,.45.39.9,1,.9h6c.61,0,1-.45,1-.9V16.21a1.16,1.16,0,0,1,.09-.42c.14-.32.51-.63.91-1a16.38,16.38,0,0,0,1.45-1.29,3.5,3.5,0,0,0,.7-3A6.81,6.81,0,0,0,17,7.34c-1.28-1.61-2.57-2.9-3.18-3.57a1.39,1.39,0,0,0-1-.44c-1,0-4.65,0-4.71,0S6.21,3.38,5.15,3.44A27.3,27.3,0,0,1,1.41,3" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-blue-900">Weekly Maintenance</h3>
+                <p className="text-gray-600 mb-4">
+                  Regular pool cleaning and chemical balancing to keep your water pristine and healthy.
+                </p>
+                <Link
+                  href="/services"
+                  className="text-blue-600 hover:text-blue-800 font-medium"
+                >
+                  Learn More →
+                </Link>
+              </div>
+            </div>
+
+            {/* Service 2 */}
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="p-8">
+                <div className="text-blue-600 mb-4">
+                  <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22l1-2.3A4.49,4.49,0,0,0,8,20c4,0,8.5-2,11-7.25L19,13V4L17,6Z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-blue-900">Seasonal Service</h3>
+                <p className="text-gray-600 mb-4">
+                  Special treatments for season changes, including opening and closing services.
+                </p>
+                <Link
+                  href="/services"
+                  className="text-blue-600 hover:text-blue-800 font-medium"
+                >
+                  Learn More →
+                </Link>
+              </div>
+            </div>
+
+            {/* Service 3 */}
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="p-8">
+                <div className="text-blue-600 mb-4">
+                  <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-blue-900">One-Time Cleaning</h3>
+                <p className="text-gray-600 mb-4">
+                  Perfect for getting your pool back in shape after neglect or before a special event.
+                </p>
+                <Link
+                  href="/services"
+                  className="text-blue-600 hover:text-blue-800 font-medium"
+                >
+                  Learn More →
+                </Link>
+              </div>
+            </div>
           </div>
 
           <div className="text-center mt-12">
-            <Button href="/services" variant="primary" size="lg">
+            <Link 
+              href="/services" 
+              className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-md text-lg font-medium transition duration-300 inline-block"
+            >
               View All Services
-            </Button>
+            </Link>
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* Before & After */}
       <section className="py-16 md:py-24 bg-gray-50">
-        <Container>
-          <SectionHeader
-            title="See The Difference"
-            subtitle="Our results speak for themselves. Check out these dramatic transformations."
-            centered={true}
-            withLine={true}
-            eyebrow="TRANSFORMATIONS"
-          />
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">See The Difference</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Our results speak for themselves. Here&apos;s what we can do for your pool.
+            </p>
+          </div>
 
-          <div className="relative">
-            <BeforeAfterComparison
-              beforeImage={beforeAfterExample.beforeImage}
-              afterImage={beforeAfterExample.afterImage}
-              className="mb-12"
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                <span className="text-white text-xl font-bold">BEFORE</span>
+              </div>
+              {/* You'll add the actual image later */}
+              <div className="w-full h-full bg-gray-400" />
+            </div>
             
-            {/* Decorative elements */}
-            <div className="absolute -top-6 -left-6 w-12 h-12 border-t-2 border-l-2 border-sky-200 rounded-tl-lg"></div>
-            <div className="absolute -bottom-6 -right-6 w-12 h-12 border-b-2 border-r-2 border-sky-200 rounded-br-lg"></div>
+            <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
+              <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                <span className="text-white text-xl font-bold">AFTER</span>
+              </div>
+              {/* You'll add the actual image later */}
+              <div className="w-full h-full bg-blue-300" />
+            </div>
           </div>
-
-          <div className="text-center mt-16">
-            <Button
-              href="/gallery"
-              variant="primary"
-              size="lg"
-              rightIcon={<span>→</span>}
-            >
-              View More Before &amp; After
-            </Button>
-          </div>
-        </Container>
+        </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 md:py-24 relative overflow-hidden">
-        <Container>
-          <SectionHeader
-            title="What Our Clients Say"
-            subtitle="Hear from satisfied pool owners throughout Ventura County"
-            centered={true}
-            withLine={true}
-            withAccent={true}
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard
-                key={index}
-                name={testimonial.name}
-                location={testimonial.location}
-                quote={testimonial.quote}
-                rating={testimonial.rating}
-                delay={index * 0.2}
-              />
-            ))}
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">What Our Clients Say</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Don&apos;t just take our word for it - hear from our satisfied customers
+            </p>
           </div>
-        </Container>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-20 md:py-28 bg-gradient-to-r from-sky-800 to-blue-900 text-white relative overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute top-0 left-0 right-0 bottom-0 opacity-10">
-          <div className="absolute -top-32 -right-32 w-96 h-96 bg-white rounded-full"></div>
-          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-sky-500 rounded-full"></div>
-          <div className="absolute -bottom-20 right-1/4 w-80 h-80 bg-blue-500 rounded-full"></div>
-        </div>
-        <Container className="relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Testimonial 1 */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.5 }}
               viewport={{ once: true }}
+              className="bg-white p-8 rounded-lg shadow-md"
             >
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 drop-shadow-sm">Ready for Crystal Clear Water?</h2>
-              <p className="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
-                Contact us today for a free quote and start enjoying your pool without the hassle of maintenance.
+              <svg className="text-blue-200 w-10 h-10 mb-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+              </svg>
+              <p className="text-gray-600 mb-4 italic">
+                &quot;Clear Water Pool Service is the best maintenance company I&apos;ve used. My pool has never looked better!&quot;
               </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-5">
-                <Button 
-                  href="/contact" 
-                  variant="white" 
-                  size="lg"
-                >
-                  Get Your Free Quote
-                </Button>
-                <Button 
-                  href="/gallery" 
-                  variant="outline" 
-                  size="lg"
-                  className="border-white text-white hover:bg-white/20"
-                >
-                  View Our Gallery
-                </Button>
-              </div>
+              <div className="font-bold text-blue-900">Sarah Johnson</div>
+              <div className="text-sm text-gray-500">Ventura</div>
+            </motion.div>
+
+            {/* Testimonial 2 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-lg shadow-md"
+            >
+              <svg className="text-blue-200 w-10 h-10 mb-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+              </svg>
+              <p className="text-gray-600 mb-4 italic">
+                &quot;Finally found a reliable pool service that shows up when they say they will. Very professional and thorough.&quot;
+              </p>
+              <div className="font-bold text-blue-900">Michael Rodriguez</div>
+              <div className="text-sm text-gray-500">Oxnard</div>
             </motion.div>
           </div>
-        </Container>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 md:py-24 bg-blue-900 text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready for a Crystal Clear Pool?</h2>
+            <p className="text-xl mb-8 text-blue-100">
+              Contact us today for a free quote and join our satisfied customers throughout Ventura County.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link
+                href="/contact"
+                className="bg-white hover:bg-blue-50 text-blue-600 py-3 px-8 rounded-md text-lg font-medium transition duration-300 text-center"
+              >
+                Get Your Free Quote
+              </Link>
+              <a
+                href="tel:8057663299"
+                className="border border-white hover:bg-white/10 text-white py-3 px-8 rounded-md text-lg font-medium transition duration-300 flex items-center justify-center gap-2"
+              >
+                <FaPhone /> (805) 766-3299
+              </a>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   );

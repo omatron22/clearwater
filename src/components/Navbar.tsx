@@ -4,9 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaPhone, FaBars, FaTimes } from 'react-icons/fa';
-import { contactInfo } from '@/utils/config';
-import Container from './Container';
-import Button from './Button';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,77 +15,52 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
-
-    // Initial check on mount
-    handleScroll();
     
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when resizing to desktop
+  // Close mobile menu when route changes
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsOpen(false);
-      }
-    };
-    
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Close mobile menu when clicking outside
-  useEffect(() => {
-    if (!isOpen) return;
-    
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (isOpen && !target.closest('.mobile-menu') && !target.closest('.mobile-toggle')) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [isOpen]);
+    setIsOpen(false);
+  }, [pathname]);
 
   // Nav links with active state handling
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/services', label: 'Services' },
-    { href: '/gallery', label: 'Gallery' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
   ];
 
   return (
     <nav 
-      className={`fixed w-full z-50 transition-all duration-500 ${
+      className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled || isOpen 
-          ? 'bg-white shadow-lg py-2 backdrop-blur-md border-b border-gray-100' 
+          ? 'bg-white shadow-md py-2' 
           : 'bg-transparent py-4'
       }`}
     >
-      <Container>
+      <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 relative z-20 group">
-            <div className={`font-bold text-xl sm:text-2xl ${
+          <Link href="/" className="relative z-20">
+            <div className={`font-bold text-xl md:text-2xl ${
               scrolled || isOpen 
-                ? 'text-sky-600 group-hover:text-sky-700' 
-                : 'text-white group-hover:text-sky-100'} transition-colors`
+                ? 'text-blue-600' 
+                : 'text-white'} transition-colors`
             }>
               Clear Water <span className={
                 scrolled || isOpen 
-                  ? 'text-sky-900 group-hover:text-sky-950' 
-                  : 'text-blue-100 group-hover:text-white'
+                  ? 'text-blue-900' 
+                  : 'text-white'
               }>Pool Service</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1 lg:gap-2">
+          <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -97,112 +69,98 @@ const Navbar = () => {
                   href={link.href} 
                   className={`px-4 py-2 rounded-md transition-all ${
                     isActive 
-                      ? (scrolled ? 'text-sky-600 bg-sky-50 font-medium shadow-sm' : 'text-white bg-white/15 backdrop-blur-sm shadow-md') 
-                      : (scrolled ? 'text-gray-700 hover:text-sky-600 hover:bg-sky-50' : 'text-white hover:bg-white/10 hover:shadow')
+                      ? (scrolled ? 'text-blue-600 bg-blue-50 font-medium' : 'text-white bg-white/20') 
+                      : (scrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:bg-white/10')
                   }`}
                 >
                   {link.label}
                 </Link>
               );
             })}
-            <Button 
+
+            {/* Contact Button */}
+            <Link
               href="/contact"
-              variant="primary"
-              size="sm"
-              className="ml-3"
+              className={`ml-3 px-4 py-2 rounded-md ${
+                scrolled 
+                  ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                  : 'bg-white hover:bg-blue-50 text-blue-600'
+              } transition-all font-medium`}
             >
               Request a Quote
-            </Button>
+            </Link>
           </div>
 
           {/* Phone Number - Desktop */}
-          <div className="hidden md:flex items-center gap-2 ml-6">
-            <div className={`rounded-full p-2 ${
+          <a 
+            href="tel:8057663299" 
+            className={`hidden md:flex items-center gap-2 ${
               scrolled 
-                ? "bg-sky-50 text-sky-600" 
-                : "bg-white/10 text-white"
-            }`}>
-              <FaPhone className="text-sm" />
-            </div>
-            <a 
-              href={`tel:${contactInfo.phone.replace(/[^0-9]/g, '')}`} 
-              className={`font-medium ${
-                scrolled 
-                  ? "text-sky-700 hover:text-sky-800" 
-                  : "text-white hover:text-sky-100"
-              } transition-colors`}
-            >
-              {contactInfo.phone}
-            </a>
-          </div>
+                ? "text-blue-600" 
+                : "text-white"
+            } transition-colors font-medium`}
+          >
+            <FaPhone className="text-sm" />
+            (805) 766-3299
+          </a>
 
-          {/* Mobile Menu Button - Enhanced for better visibility */}
+          {/* Mobile Menu Button */}
           <button
-            className={`md:hidden relative z-20 p-2.5 rounded-lg ${
+            className={`md:hidden p-2 rounded-md ${
               isOpen 
-                ? 'bg-sky-100 text-sky-700' 
-                : (scrolled ? 'bg-white text-sky-700 shadow-sm border border-gray-100' : 'bg-white/20 text-white backdrop-blur-sm')
-            } mobile-toggle transition-all`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsOpen(!isOpen);
-            }}
+                ? 'bg-gray-100 text-gray-700' 
+                : (scrolled ? 'text-blue-600' : 'text-white')
+            }`}
+            onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <FaTimes className="w-5 h-5" /> : <FaBars className="w-5 h-5" />}
+            {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
         </div>
 
-        {/* Mobile Menu - Improved with smooth animations */}
+        {/* Mobile Menu */}
         <div 
-          className={`md:hidden fixed inset-x-0 transition-all duration-300 ease-in-out ${
+          className={`md:hidden absolute left-0 right-0 z-10 bg-white shadow-lg transition-all duration-300 ${
             isOpen 
-              ? 'opacity-100 translate-y-0 pointer-events-auto' 
-              : 'opacity-0 -translate-y-8 pointer-events-none'
+              ? 'top-full opacity-100' 
+              : '-top-96 opacity-0'
           }`}
         >
-          <div className="bg-white rounded-lg shadow-xl p-6 m-4 mt-4 border border-gray-100 mobile-menu">
-            <div className="flex flex-col space-y-3">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`p-3 rounded-lg flex items-center ${
-                      isActive 
-                        ? 'bg-sky-50 text-sky-700 font-medium shadow-sm' 
-                        : 'text-gray-700 hover:bg-gray-50'
-                    }`}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-              
-              <div className="py-3 mt-2">
-                <Button
-                  href="/contact"
-                  variant="primary"
-                  fullWidth
-                  size="lg"
-                  onClick={() => setIsOpen(false)}
+          <div className="p-4">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`block py-3 px-4 rounded-md my-2 ${
+                    isActive 
+                      ? 'bg-blue-50 text-blue-600 font-medium' 
+                      : 'text-gray-700 hover:bg-gray-50'
+                  }`}
                 >
-                  Request a Quote
-                </Button>
-              </div>
-              
-              <div className="flex items-center justify-center gap-3 text-sky-700 py-3 mt-1 bg-sky-50 rounded-lg">
-                <FaPhone className="w-4 h-4" />
-                <a href={`tel:${contactInfo.phone.replace(/[^0-9]/g, '')}`} className="font-medium">
-                  {contactInfo.phone}
-                </a>
-              </div>
-            </div>
+                  {link.label}
+                </Link>
+              );
+            })}
+            
+            <Link
+              href="/contact"
+              className="block py-3 px-4 my-3 bg-blue-600 text-white text-center rounded-md"
+            >
+              Request a Quote
+            </Link>
+            
+            <a 
+              href="tel:8057663299" 
+              className="flex items-center justify-center gap-2 my-3 py-3 px-4 bg-gray-50 text-blue-600 rounded-md"
+            >
+              <FaPhone />
+              (805) 766-3299
+            </a>
           </div>
         </div>
-      </Container>
+      </div>
     </nav>
   );
 };

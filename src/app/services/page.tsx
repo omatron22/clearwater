@@ -3,26 +3,33 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaCheck } from 'react-icons/fa';
-import Container from '@/components/Container';
-import HeroSection from '@/components/HeroSection';
-import SectionHeader from '@/components/SectionHeader';
-import ResponsiveImage from '@/components/ResponsiveImage';
-import CallToAction from '@/components/CallToAction';
-import { services } from '@/utils/config';
 
 export default function ServicesPage() {
   return (
     <>
-      {/* Hero Section using the HeroSection component */}
-      <HeroSection
-        title="Our Services"
-        subtitle="Professional pool maintenance focused on keeping your water crystal clear"
-        imageCategory="hero"
-      />
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-24">
+        {/* Background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/50 z-10" />
+          {/* You'll add the actual image later */}
+          <div className="w-full h-full bg-blue-700" />
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center text-white">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h1>
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+              Professional pool maintenance focused on keeping your water crystal clear
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Main Services */}
       <section className="py-16 md:py-24">
-        <Container>
+        <div className="container mx-auto px-4">
+          {/* Weekly Maintenance */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -31,13 +38,8 @@ export default function ServicesPage() {
               viewport={{ once: true }}
             >
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
-                <ResponsiveImage
-                  src="/images/pools/weekly-maintenance.jpg"
-                  alt="Weekly pool maintenance"
-                  category="maintenance"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
+                {/* You'll add the actual image later */}
+                <div className="bg-blue-200 w-full h-full" />
               </div>
             </motion.div>
             
@@ -50,20 +52,38 @@ export default function ServicesPage() {
             >
               <div className="text-blue-600 mb-4">
                 <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1.41,3a37.73,37.73,0,0,1,.29,8,.69.69,0,0,0,.38.65c1.13.54,4.11,1.95,5.44,2.79.7.45.68,1,.68,1.78V22.1c0,.45.39.9,1,.9h6c.61,0,1-.45,1-.9V16.21a1.16,1.16,0,0,1,.09-.42c.14-.32.51-.63.91-1a16.38,16.38,0,0,0,1.45-1.29,3.5,3.5,0,0,0,.7-3A6.81,6.81,0,0,0,17,7.34c-1.28-1.61-2.57-2.9-3.18-3.57a1.39,1.39,0,0,0-1-.44c-1,0-4.65,0-4.71,0S6.21,3.38,5.15,3.44A27.3,27.3,0,0,1,1.41,3m4.53,1.23c.23,0,1.39.08,3,.08,1.36,0,3.43-.07,3.69-.07a.93.93,0,0,1,.7.28c.59.64,1.85,1.9,3.08,3.45a6.09,6.09,0,0,1,1.93,2.43,2.66,2.66,0,0,1-.5,2.28c-.2.24-.77.79-1.38,1.21-.46.33-1,.74-1.17,1.19a2,2,0,0,0-.14.74V22H9.2V16.21c0-1-.18-1.84-1.14-2.44-1.35-.85-4.19-2.19-5.39-2.77-.12-1.88-.2-4.86-.17-7.76a25.67,25.67,0,0,0,3.44.22" />
+                  <path d="M1.41,3a37.73,37.73,0,0,1,.29,8,.69.69,0,0,0,.38.65c1.13.54,4.11,1.95,5.44,2.79.7.45.68,1,.68,1.78V22.1c0,.45.39.9,1,.9h6c.61,0,1-.45,1-.9V16.21a1.16,1.16,0,0,1,.09-.42c.14-.32.51-.63.91-1a16.38,16.38,0,0,0,1.45-1.29,3.5,3.5,0,0,0,.7-3A6.81,6.81,0,0,0,17,7.34c-1.28-1.61-2.57-2.9-3.18-3.57a1.39,1.39,0,0,0-1-.44c-1,0-4.65,0-4.71,0S6.21,3.38,5.15,3.44A27.3,27.3,0,0,1,1.41,3" />
                 </svg>
               </div>
-              <h2 className="text-3xl font-bold mb-4 text-blue-900">{services.regular.title}</h2>
+              <h2 className="text-3xl font-bold mb-4 text-blue-900">Weekly Maintenance</h2>
               <p className="text-lg text-gray-600 mb-6">
-                {services.regular.description}
+                Our weekly pool maintenance includes comprehensive cleaning, water testing, and chemical balancing to keep your pool sparkling clean and chemically balanced.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                {services.regular.features.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-2">
-                    <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
-                    <span>{feature}</span>
-                  </div>
-                ))}
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Water testing & balancing</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Skimming & debris removal</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Vacuuming pool floor</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Cleaning waterline tiles</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Emptying skimmer baskets</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Checking equipment operation</span>
+                </div>
               </div>
               <Link
                 href="/contact"
@@ -74,6 +94,7 @@ export default function ServicesPage() {
             </motion.div>
           </div>
 
+          {/* Seasonal Service */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -87,17 +108,35 @@ export default function ServicesPage() {
                   <path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22l1-2.3A4.49,4.49,0,0,0,8,20c4,0,8.5-2,11-7.25L19,13V4L17,6Z" />
                 </svg>
               </div>
-              <h2 className="text-3xl font-bold mb-4 text-blue-900">{services.seasonal.title}</h2>
+              <h2 className="text-3xl font-bold mb-4 text-blue-900">Seasonal Service</h2>
               <p className="text-lg text-gray-600 mb-6">
-                {services.seasonal.description}
+                As seasons change, your pool needs special attention. Our seasonal services include pool openings, closings, and special treatments to address seasonal challenges.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                {services.seasonal.features.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-2">
-                    <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
-                    <span>{feature}</span>
-                  </div>
-                ))}
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Spring pool openings</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Fall/winter pool closings</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Algae prevention treatments</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Equipment winterization</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Pool cover installation</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Winter check-up visits</span>
+                </div>
               </div>
               <Link
                 href="/contact"
@@ -115,17 +154,13 @@ export default function ServicesPage() {
               className="order-1 lg:order-2"
             >
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
-                <ResponsiveImage
-                  src="/images/pools/seasonal-service.jpg"
-                  alt="Seasonal pool service"
-                  category="seasonal"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
+                {/* You'll add the actual image later */}
+                <div className="bg-green-200 w-full h-full" />
               </div>
             </motion.div>
           </div>
 
+          {/* One-Time Cleaning */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -134,13 +169,8 @@ export default function ServicesPage() {
               viewport={{ once: true }}
             >
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
-                <ResponsiveImage
-                  src="/images/pools/one-time-cleaning.jpg"
-                  alt="One-time pool cleaning"
-                  category="maintenance"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
+                {/* You'll add the actual image later */}
+                <div className="bg-indigo-200 w-full h-full" />
               </div>
             </motion.div>
             
@@ -156,17 +186,35 @@ export default function ServicesPage() {
                   <path d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1" />
                 </svg>
               </div>
-              <h2 className="text-3xl font-bold mb-4 text-blue-900">{services.oneTime.title}</h2>
+              <h2 className="text-3xl font-bold mb-4 text-blue-900">One-Time Cleaning</h2>
               <p className="text-lg text-gray-600 mb-6">
-                {services.oneTime.description}
+                Perfect for getting your pool back in shape after neglect or preparing for a special event. Our thorough one-time cleaning service will transform your pool.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                {services.oneTime.features.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-2">
-                    <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
-                    <span>{feature}</span>
-                  </div>
-                ))}
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Deep vacuuming</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Algae treatment</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Complete water testing</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Chemical balancing</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Tile & surface cleaning</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
+                  <span>Equipment check</span>
+                </div>
               </div>
               <Link
                 href="/contact"
@@ -176,17 +224,18 @@ export default function ServicesPage() {
               </Link>
             </motion.div>
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* Additional Services */}
       <section className="py-16 bg-blue-50">
-        <Container>
-          <SectionHeader
-            title="Additional Services"
-            subtitle="While we focus on maintenance rather than repairs, we offer these additional services to keep your pool in top condition"
-            centered={true}
-          />
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Additional Services</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              While we focus on maintenance rather than repairs, we offer these additional services to keep your pool in top condition
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <motion.div
@@ -246,16 +295,26 @@ export default function ServicesPage() {
               </p>
             </motion.div>
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* CTA Section */}
-      <CallToAction
-        title="Ready to Experience Hassle-Free Pool Maintenance?"
-        subtitle="Contact us today for a free quote and join our satisfied customers throughout Ventura County."
-        buttonText="Get Your Free Quote"
-        buttonLink="/contact"
-      />
+      <section className="py-16 bg-blue-900 text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Experience Hassle-Free Pool Maintenance?</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto">
+              Contact us today for a free quote and join our satisfied customers throughout Ventura County.
+            </p>
+            <Link
+              href="/contact"
+              className="bg-white text-blue-900 hover:bg-blue-100 font-bold py-3 px-8 rounded-md text-lg transition duration-300 inline-block"
+            >
+              Get Your Free Quote
+            </Link>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
