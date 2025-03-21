@@ -37,6 +37,22 @@ const Navbar = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      // Check if the click is outside the mobile menu and not on the toggle button
+      if (isOpen && !target.closest('.mobile-menu') && !target.closest('.mobile-toggle')) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isOpen]);
+
   return (
     <nav 
       className={`fixed w-full z-50 transition-all duration-300 ${
@@ -86,8 +102,11 @@ const Navbar = () => {
           </div>
 
           <button
-            className={`md:hidden relative z-20 p-1 ${scrolled || isOpen ? 'text-gray-700' : 'text-white'}`}
-            onClick={() => setIsOpen(!isOpen)}
+            className={`md:hidden relative z-20 p-1 ${scrolled || isOpen ? 'text-gray-700' : 'text-white'} mobile-toggle`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen(!isOpen);
+            }}
             aria-label="Toggle menu"
           >
             <svg
@@ -118,7 +137,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden mt-4 bg-white rounded-lg shadow-lg p-6 absolute top-full left-0 right-0 mx-4 border-t border-gray-100">
+          <div className="md:hidden mt-4 bg-white rounded-lg shadow-lg p-6 absolute top-full left-0 right-0 mx-4 border-t border-gray-100 mobile-menu">
             <div className="flex flex-col space-y-4">
               <Link
                 href="/"

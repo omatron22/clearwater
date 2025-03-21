@@ -4,6 +4,7 @@
 import Image, { ImageProps } from 'next/image';
 import { useState } from 'react';
 import { imageConfig } from '@/utils/config';
+import PlaceholderImage from './PlaceholderImage';
 
 // Create a new interface that doesn't include placeholder or onError from ImageProps
 interface ResponsiveImageProps extends Omit<ImageProps, 'onError' | 'placeholder'> {
@@ -31,53 +32,17 @@ const ResponsiveImage = ({
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  // Generate gradient based on image category
-  const getGradient = () => {
-    const gradients: Record<string, string> = {
-      default: 'from-blue-400 to-blue-600',
-      hero: 'from-blue-500 to-indigo-700',
-      pool: 'from-blue-400 to-cyan-600',
-      before: 'from-yellow-500 to-red-600',
-      after: 'from-green-400 to-blue-500',
-      maintenance: 'from-blue-300 to-blue-500',
-      seasonal: 'from-orange-300 to-blue-400',
-      'before-after': 'from-red-400 to-green-500',
-      team: 'from-indigo-400 to-purple-600',
-      testimonial: 'from-blue-300 to-indigo-500',
-      map: 'from-blue-200 to-blue-600',
-    };
-    
-    return gradients[category] || gradients.default;
-  };
-
   // If we're using placeholders globally or this image has an error
   if (usePlaceholder || hasError) {
     return (
-      <div 
-        className={`relative overflow-hidden ${className}`}
-        style={fill ? { width: '100%', height: '100%', position: 'relative', ...style } : { ...style }}
-      >
-        <div 
-          className={`absolute inset-0 bg-gradient-to-br ${getGradient()} flex items-center justify-center text-white text-opacity-70`}
-        >
-          <div className="text-center p-4">
-            <div className="text-sm font-bold uppercase">{category}</div>
-            <div className="text-xs opacity-80">{alt}</div>
-          </div>
-        </div>
-        
-        {fill ? (
-          <div style={{ width: '100%', height: '100%', position: 'relative' }} />
-        ) : (
-          <div 
-            style={{ 
-              width: '100%', 
-              paddingBottom: `${(typeof height === 'number' && typeof width === 'number') ? 
-                (height / width) * 100 : 75}%`,
-            }} 
-          />
-        )}
-      </div>
+      <PlaceholderImage
+        alt={alt}
+        className={className}
+        width={typeof width === 'number' ? width : 800}
+        height={typeof height === 'number' ? height : 600}
+        category={category}
+        fill={fill}
+      />
     );
   }
 

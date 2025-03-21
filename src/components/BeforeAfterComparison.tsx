@@ -1,3 +1,4 @@
+// src/components/BeforeAfterComparison.tsx
 'use client';
 
 import ResponsiveImage from './ResponsiveImage';

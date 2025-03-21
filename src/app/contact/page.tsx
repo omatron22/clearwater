@@ -1,8 +1,14 @@
+// src/app/contact/page.tsx
 'use client';
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import Container from '@/components/Container';
+import HeroSection from '@/components/HeroSection';
+import SectionHeader from '@/components/SectionHeader';
+import ResponsiveImage from '@/components/ResponsiveImage';
+import { contactInfo } from '@/utils/config';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -50,31 +56,15 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 bg-blue-900">
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <div className="text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
-            <p className="text-xl max-w-2xl mx-auto">
-              Request a quote or get in touch with any questions
-            </p>
-          </div>
-        </div>
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden">
-          <svg
-            className="fill-current text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-            style={{ height: '70px' }}
-          >
-            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"></path>
-          </svg>
-        </div>
-      </section>
+      <HeroSection
+        title="Contact Us"
+        subtitle="Request a quote or get in touch with any questions"
+        imageCategory="hero"
+      />
 
       {/* Contact Info + Form Section */}
       <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4 md:px-6">
+        <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Information */}
             <motion.div
@@ -93,8 +83,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-blue-900">Phone</h3>
-                      <p className="text-gray-600 mt-1">(805) 415-6242</p>
-                      <p className="text-gray-500 text-sm mt-1">Available Mon-Fri, 8am-6pm</p>
+                      <p className="text-gray-600 mt-1">{contactInfo.phone}</p>
+                      <p className="text-gray-500 text-sm mt-1">{contactInfo.availableHours}</p>
                     </div>
                   </div>
                   
@@ -104,7 +94,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-blue-900">Email</h3>
-                      <p className="text-gray-600 mt-1">clearwater3317@yahoo.comm</p>
+                      <p className="text-gray-600 mt-1">{contactInfo.email}</p>
                       <p className="text-gray-500 text-sm mt-1">We&apos;ll respond within 24 hours</p>
                     </div>
                   </div>
@@ -115,7 +105,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-blue-900">Service Area</h3>
-                      <p className="text-gray-600 mt-1">Ventura County, CA</p>
+                      <p className="text-gray-600 mt-1">{contactInfo.serviceArea}</p>
                       <p className="text-gray-500 text-sm mt-1">Serving all communities in Ventura County</p>
                     </div>
                   </div>
@@ -303,18 +293,17 @@ export default function ContactPage() {
               )}
             </motion.div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* FAQ Section */}
       <section className="py-16 bg-blue-50">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Frequently Asked Questions</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Have questions about our services? Find quick answers below
-            </p>
-          </div>
+        <Container>
+          <SectionHeader
+            title="Frequently Asked Questions"
+            subtitle="Have questions about our services? Find quick answers below"
+            centered={true}
+          />
 
           <div className="max-w-3xl mx-auto">
             <div className="space-y-6">
@@ -360,26 +349,28 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Map Section */}
       <section className="py-16">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Our Service Area</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Proudly serving pool owners throughout Ventura County
-            </p>
-          </div>
+        <Container>
+          <SectionHeader
+            title="Our Service Area"
+            subtitle="Proudly serving pool owners throughout Ventura County"
+            centered={true}
+          />
 
           <div className="bg-white rounded-xl shadow-lg overflow-hidden h-96 relative">
-            {/* Placeholder for Google Maps - In a real implementation, you would integrate Google Maps API */}
-            <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-              <p className="text-gray-500 text-lg">Map of Ventura County Service Area</p>
-            </div>
+            <ResponsiveImage
+              src="/images/pools/misc/ventura-county-map.jpg"
+              alt="Map of Ventura County Service Area"
+              category="map"
+              fill
+              style={{ objectFit: 'cover' }}
+            />
           </div>
-        </div>
+        </Container>
       </section>
     </>
   );

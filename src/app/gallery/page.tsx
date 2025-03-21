@@ -1,13 +1,15 @@
+// src/app/gallery/page.tsx
 'use client';
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import HeroSection from '@/components/HeroSection';
 import Container from '@/components/Container';
 import SectionHeader from '@/components/SectionHeader';
 import ResponsiveImage from '@/components/ResponsiveImage';
-// Removed the unused imageConfig import
+import CallToAction from '@/components/CallToAction';
+import BeforeAfterComparison from '@/components/BeforeAfterComparison';
+import { beforeAfterExamples } from '@/utils/config';
 
 type GalleryImage = {
   id: number;
@@ -180,116 +182,26 @@ export default function GalleryPage() {
           />
 
           <div className="space-y-16">
-            {/* Transformation 1 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
-                <div className="relative h-72 md:h-96">
-                  <ResponsiveImage
-                    src="/images/pools/before-after/before1.jpg"
-                    alt="Green pool before cleaning"
-                    category="before"
-                    fill
-                    style={{ objectFit: 'cover' }}
-                  />
-                  <div className="absolute top-4 left-4 bg-red-600 text-white py-1 px-4 rounded-md">
-                    Before
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-blue-900">Neglected Pool</h3>
-                  <p className="text-gray-600">
-                    This pool had been neglected for months, resulting in green water and algae growth.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
-                <div className="relative h-72 md:h-96">
-                  <ResponsiveImage
-                    src="/images/pools/before-after/after1.jpg"
-                    alt="Clean pool after service"
-                    category="after"
-                    fill
-                    style={{ objectFit: 'cover' }}
-                  />
-                  <div className="absolute top-4 left-4 bg-green-600 text-white py-1 px-4 rounded-md">
-                    After
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-blue-900">Crystal Clear Restoration</h3>
-                  <p className="text-gray-600">
-                    After just three days of our green-to-clean service, the pool was completely transformed.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Transformation 2 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
-                <div className="relative h-72 md:h-96">
-                  <ResponsiveImage
-                    src="/images/pools/before-after/before2.jpg"
-                    alt="Dirty tile line before cleaning"
-                    category="before"
-                    fill
-                    style={{ objectFit: 'cover' }}
-                  />
-                  <div className="absolute top-4 left-4 bg-red-600 text-white py-1 px-4 rounded-md">
-                    Before
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-blue-900">Calcium Buildup</h3>
-                  <p className="text-gray-600">
-                    Severe calcium scaling on the waterline tiles detracted from this pool&apos;s appearance.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
-                <div className="relative h-72 md:h-96">
-                  <ResponsiveImage
-                    src="/images/pools/before-after/after2.jpg"
-                    alt="Clean tile line after service"
-                    category="after"
-                    fill
-                    style={{ objectFit: 'cover' }}
-                  />
-                  <div className="absolute top-4 left-4 bg-green-600 text-white py-1 px-4 rounded-md">
-                    After
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-blue-900">Sparkling Tiles</h3>
-                  <p className="text-gray-600">
-                    Our specialized tile cleaning service restored the beauty of this pool&apos;s waterline.
-                  </p>
-                </div>
-              </div>
-            </div>
+            {/* Use the BeforeAfterComparison Component for consistency */}
+            {beforeAfterExamples.map((example) => (
+              <BeforeAfterComparison
+                key={example.id}
+                beforeImage={example.beforeImage}
+                afterImage={example.afterImage}
+                className="mb-8"
+              />
+            ))}
           </div>
         </Container>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-blue-900 text-white">
-        <Container>
-          <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready for Your Own Transformation?</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Contact us today for a free quote and see what Clear Water Pool Service can do for your pool.
-            </p>
-            <Link
-              href="/contact"
-              className="bg-white text-blue-900 hover:bg-blue-100 font-bold py-3 px-8 rounded-md text-lg transition duration-300 inline-block"
-            >
-              Get Your Free Quote
-            </Link>
-          </div>
-        </Container>
-      </section>
+      <CallToAction
+        title="Ready for Your Own Transformation?"
+        subtitle="Contact us today for a free quote and see what Clear Water Pool Service can do for your pool."
+        buttonText="Get Your Free Quote"
+        buttonLink="/contact"
+      />
     </>
   );
 }

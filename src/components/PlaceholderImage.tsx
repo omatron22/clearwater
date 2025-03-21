@@ -1,9 +1,6 @@
 // src/components/PlaceholderImage.tsx
 'use client';
 
-// Remove unused import
-// import Image from 'next/image';
-
 type PlaceholderImageProps = {
   alt: string;
   className?: string;
@@ -24,13 +21,11 @@ const PlaceholderImage = ({
   className = '', 
   width = 800, 
   height = 600, 
-  // Remove unused aspectRatio from destructuring but keep in props type for future use
-  // aspectRatio,
   category = 'default',
   fill = false
 }: PlaceholderImageProps) => {
   // Define gradients based on category
-  const gradients = {
+  const gradients: Record<string, string> = {
     default: 'from-blue-400 to-blue-600',
     hero: 'from-blue-500 to-indigo-700',
     pool: 'from-blue-400 to-cyan-600',
@@ -40,13 +35,12 @@ const PlaceholderImage = ({
     seasonal: 'from-orange-300 to-blue-400',
     'before-after': 'from-red-400 to-green-500',
     people: 'from-indigo-400 to-purple-600',
+    team: 'from-indigo-400 to-purple-600',
     testimonial: 'from-blue-300 to-indigo-500',
     map: 'from-blue-200 to-blue-600',
   };
 
-  const gradientClass = gradients[category as keyof typeof gradients] || gradients.default;
-  
-  // Removed unused style variable 
+  const gradientClass = gradients[category] || gradients.default;
   
   return (
     <div 
@@ -54,7 +48,7 @@ const PlaceholderImage = ({
       style={fill ? { width: '100%', height: '100%', position: 'relative' } : {}}
     >
       <div 
-        className={`absolute inset-0 bg-gradient-to-br ${gradientClass} flex items-center justify-center text-white text-opacity-70 animate-pulse`}
+        className={`absolute inset-0 bg-gradient-to-br ${gradientClass} flex items-center justify-center text-white text-opacity-70`}
       >
         <div className="text-center p-4">
           <div className="text-sm font-bold uppercase">{category}</div>
@@ -68,7 +62,6 @@ const PlaceholderImage = ({
         <div 
           style={{ 
             width: '100%', 
-            // We could use aspectRatio here if provided, but for now calculating aspect ratio from width/height
             paddingBottom: `${(height / width) * 100}%`,
             background: 'transparent' 
           }} 
