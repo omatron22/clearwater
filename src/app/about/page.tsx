@@ -1,39 +1,27 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
 import { FaSwimmingPool, FaWater, FaLeaf, FaHandshake } from 'react-icons/fa';
+import Container from '@/components/Container';
+import SectionHeader from '@/components/SectionHeader';
+import ResponsiveImage from '@/components/ResponsiveImage';
+import HeroSection from '@/components/HeroSection';
+import { serviceAreas } from '@/utils/config';
 
 export default function AboutPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 bg-blue-900">
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <div className="text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">About Us</h1>
-            <p className="text-xl max-w-2xl mx-auto">
-              Meet the team behind Clear Water Pool Service
-            </p>
-          </div>
-        </div>
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden">
-          <svg
-            className="fill-current text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-            style={{ height: '70px' }}
-          >
-            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"></path>
-          </svg>
-        </div>
-      </section>
+      <HeroSection
+        title="About Us"
+        subtitle="Meet the team behind Clear Water Pool Service"
+        imageCategory="hero"
+      />
 
       {/* About Content */}
       <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4 md:px-6">
+        <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -42,9 +30,10 @@ export default function AboutPage() {
               viewport={{ once: true }}
             >
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
-                <Image
-                  src="/images/pools/owner.jpg"
+                <ResponsiveImage
+                  src="/images/pools/team/owner.jpg"
                   alt="Roman Espinoza, Owner of Clear Water Pool Service"
+                  category="team"
                   fill
                   style={{ objectFit: 'cover' }}
                 />
@@ -78,12 +67,11 @@ export default function AboutPage() {
 
           {/* Our Values */}
           <div className="py-16">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Our Values</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                The principles that guide everything we do
-              </p>
-            </div>
+            <SectionHeader
+              title="Our Values"
+              subtitle="The principles that guide everything we do"
+              centered={true}
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <motion.div
@@ -91,7 +79,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-lg shadow-lg p-8 text-center"
+                className="bg-white rounded-lg shadow-lg p-8 text-center h-full"
               >
                 <div className="text-blue-600 mx-auto mb-4">
                   <FaSwimmingPool className="w-12 h-12 mx-auto" />
@@ -107,7 +95,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-lg shadow-lg p-8 text-center"
+                className="bg-white rounded-lg shadow-lg p-8 text-center h-full"
               >
                 <div className="text-blue-600 mx-auto mb-4">
                   <FaWater className="w-12 h-12 mx-auto" />
@@ -123,7 +111,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-lg shadow-lg p-8 text-center"
+                className="bg-white rounded-lg shadow-lg p-8 text-center h-full"
               >
                 <div className="text-blue-600 mx-auto mb-4">
                   <FaHandshake className="w-12 h-12 mx-auto" />
@@ -139,7 +127,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-lg shadow-lg p-8 text-center"
+                className="bg-white rounded-lg shadow-lg p-8 text-center h-full"
               >
                 <div className="text-blue-600 mx-auto mb-4">
                   <FaLeaf className="w-12 h-12 mx-auto" />
@@ -154,18 +142,18 @@ export default function AboutPage() {
           
           {/* Service Area */}
           <div className="py-16">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Our Service Area</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Clear Water Pool Service proudly serves pool owners throughout Ventura County
-              </p>
-            </div>
+            <SectionHeader
+              title="Our Service Area"
+              subtitle="Clear Water Pool Service proudly serves pool owners throughout Ventura County"
+              centered={true}
+            />
             
             <div className="bg-white rounded-lg shadow-xl overflow-hidden">
               <div className="relative h-96">
-                <Image
-                  src="/images/pools/ventura-county-map.jpg"
+                <ResponsiveImage
+                  src="/images/pools/misc/ventura-county-map.jpg"
                   alt="Ventura County service area map"
+                  category="map"
                   fill
                   style={{ objectFit: 'cover' }}
                 />
@@ -173,34 +161,14 @@ export default function AboutPage() {
               <div className="p-8">
                 <h3 className="text-xl font-bold mb-4 text-blue-900">Areas We Serve:</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  <div>
-                    <ul className="space-y-2">
-                      <li>• Ventura</li>
-                      <li>• Oxnard</li>
-                      <li>• Camarillo</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul className="space-y-2">
-                      <li>• Thousand Oaks</li>
-                      <li>• Simi Valley</li>
-                      <li>• Moorpark</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul className="space-y-2">
-                      <li>• Ojai</li>
-                      <li>• Santa Paula</li>
-                      <li>• Fillmore</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul className="space-y-2">
-                      <li>• Port Hueneme</li>
-                      <li>• Oak Park</li>
-                      <li>• Newbury Park</li>
-                    </ul>
-                  </div>
+                  {/* Simple grid layout for service areas */}
+                  {serviceAreas.map((area, index) => (
+                    <div key={index} className="col-span-1">
+                      <ul className="space-y-2">
+                        <li>• {area}</li>
+                      </ul>
+                    </div>
+                  ))}
                 </div>
                 <p className="mt-6 text-gray-600">
                   Not sure if we service your area? Contact us and we&apos;ll be happy to let you know!
@@ -208,12 +176,12 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Mission Statement */}
       <section className="py-16 bg-blue-50">
-        <div className="container mx-auto px-4 md:px-6">
+        <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-blue-900">Our Mission</h2>
             <div className="text-xl text-gray-600 bg-white p-8 rounded-xl shadow-md relative">
@@ -233,23 +201,25 @@ export default function AboutPage() {
               </svg>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* CTA Section */}
       <section className="py-16 bg-blue-900 text-white">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Let&apos;s Work Together</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Ready to experience the Clear Water difference? Contact us today for a free quote and join our family of satisfied customers.
-          </p>
-          <Link
-            href="/contact"
-            className="bg-white text-blue-900 hover:bg-blue-100 font-bold py-3 px-8 rounded-md text-lg transition duration-300"
-          >
-            Get Your Free Quote
-          </Link>
-        </div>
+        <Container>
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Let&apos;s Work Together</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto">
+              Ready to experience the Clear Water difference? Contact us today for a free quote and join our family of satisfied customers.
+            </p>
+            <Link
+              href="/contact"
+              className="bg-white text-blue-900 hover:bg-blue-100 font-bold py-3 px-8 rounded-md text-lg transition duration-300 inline-block"
+            >
+              Get Your Free Quote
+            </Link>
+          </div>
+        </Container>
       </section>
     </>
   );
