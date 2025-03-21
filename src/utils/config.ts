@@ -2,11 +2,52 @@
 
 /**
  * Centralized configuration utility for the application
- * This allows for easier management of feature flags and configuration values
+ * This allows for easier management of feature flags, theme, and configuration values
  */
 
-// Image configuration
-export const imageConfig = {
+// Theme colors - centralized for consistent use throughout the application
+export const themeColors = {
+    primary: {
+      light: 'blue-500',
+      DEFAULT: 'blue-600',
+      dark: 'blue-700',
+      darker: 'blue-800',
+      darkest: 'blue-900',
+    },
+    secondary: {
+      light: 'indigo-400',
+      DEFAULT: 'indigo-500',
+      dark: 'indigo-600',
+    },
+    accent: {
+      success: 'emerald-500',
+      warning: 'amber-500',
+      danger: 'red-500',
+      info: 'cyan-500',
+    },
+    text: {
+      heading: 'blue-900',
+      body: 'gray-600',
+      light: 'gray-500',
+      inverted: 'white',
+    },
+    background: {
+      light: 'blue-50',
+      dark: 'blue-900',
+      white: 'white',
+      card: 'white',
+    },
+  };
+  
+  // Animation defaults
+  export const animationDefaults = {
+    duration: 0.5,
+    staggerChildren: 0.2,
+    viewportOnce: true,
+  };
+  
+  // Image configuration
+  export const imageConfig = {
     // Set to true to use placeholder images instead of actual images
     // When you get real images, set this to false
     usePlaceholders: true,
@@ -160,6 +201,8 @@ export const imageConfig = {
   ];
   
   export default {
+    themeColors,
+    animationDefaults,
     imageConfig,
     contactInfo,
     companyInfo,

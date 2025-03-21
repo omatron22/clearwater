@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { imageConfig } from '@/utils/config';
 import PlaceholderImage from './PlaceholderImage';
 
-// Create a new interface that doesn't include placeholder or onError from ImageProps
+// Create a new interface that extends from ImageProps but excludes some properties
 interface ResponsiveImageProps extends Omit<ImageProps, 'onError' | 'placeholder'> {
   category?: string;
   usePlaceholder?: boolean;
@@ -47,7 +47,7 @@ const ResponsiveImage = ({
   }
 
   return (
-    <div className={`relative ${className}`} style={{ ...style }}>
+    <div className={`relative overflow-hidden ${className}`} style={{ ...style }}>
       {isLoading && (
         <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
           <span className="sr-only">Loading...</span>

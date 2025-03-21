@@ -5,6 +5,7 @@ import { ReactNode } from 'react';
 import PlaceholderImage from './PlaceholderImage';
 import WaveDivider from './WaveDivider';
 import Container from './Container';
+import { themeColors } from '@/utils/config';
 
 type HeroSectionProps = {
   title: string;
@@ -23,6 +24,8 @@ type HeroSectionProps = {
   usePlaceholder?: boolean;
   paddingTop?: string;
   paddingBottom?: string;
+  titleSize?: string;
+  subtitleSize?: string;
 };
 
 /**
@@ -37,14 +40,16 @@ const HeroSection = ({
   wave = true,
   wavePattern = 'default',
   waveColor = 'text-white',
-  overlayColor = 'bg-blue-900',
+  overlayColor = `bg-${themeColors.primary.darker}`,
   overlayOpacity = '60',
   children,
   height = 'min-h-[70vh]',
   textAlign = 'center',
   usePlaceholder = true,
   paddingTop = 'pt-32 md:pt-40',
-  paddingBottom = 'pb-16 md:pb-24'
+  paddingBottom = 'pb-16 md:pb-24',
+  titleSize = 'text-4xl md:text-5xl lg:text-6xl',
+  subtitleSize = 'text-xl md:text-2xl',
 }: HeroSectionProps) => {
   const alignmentClasses = {
     left: 'text-left items-start',
@@ -80,11 +85,11 @@ const HeroSection = ({
           transition={{ duration: 0.8 }}
           className={`max-w-3xl ${textAlign === 'center' ? 'mx-auto' : ''} ${alignmentClasses[textAlign]}`}
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className={`${titleSize} font-bold mb-6 leading-tight`}>
             {title}
           </h1>
           {subtitle && (
-            <p className="text-xl max-w-2xl mx-auto">
+            <p className={`${subtitleSize} max-w-2xl ${textAlign === 'center' ? 'mx-auto' : ''} opacity-90`}>
               {subtitle}
             </p>
           )}

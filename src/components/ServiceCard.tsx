@@ -1,9 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { FaCheck, FaWater, FaLeaf, FaCalendarAlt, FaClipboardCheck, FaChartLine } from 'react-icons/fa';
 import { IconBaseProps } from 'react-icons';
+import Card from './Card';
+import Button from './Button';
 
 // Type definitions
 type ServiceIconName = 'FaWater' | 'FaLeaf' | 'FaCalendarAlt' | 'FaClipboardCheck' | 'FaChartLine';
@@ -25,6 +26,7 @@ interface ServiceCardProps {
   delay?: number;
   className?: string;
   link?: string;
+  cta?: string;
 }
 
 /**
@@ -62,6 +64,7 @@ const ServiceCard = ({
   delay = 0,
   className = '',
   link = '/services',
+  cta = 'Learn more',
 }: ServiceCardProps) => {
   return (
     <motion.div
@@ -69,33 +72,45 @@ const ServiceCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
       viewport={{ once: true }}
-      className={`bg-white rounded-lg shadow-lg p-6 md:p-8 hover:shadow-xl transition duration-300 h-full flex flex-col ${className}`}
+      className="h-full"
     >
-      <div className="text-blue-600 mb-4">
-        <IconComponent icon={icon} />
-      </div>
-      
-      <h3 className="text-xl font-bold mb-3 text-blue-900">{title}</h3>
-      
-      <p className="text-gray-600 mb-4">
-        {description}
-      </p>
-      
-      <ul className="space-y-2 mb-6 flex-grow">
-        {features.map((feature, index) => (
-          <li key={index} className="flex items-start">
-            <FaCheck className="text-green-500 mr-2 mt-1 flex-shrink-0" />
-            <span>{feature}</span>
-          </li>
-        ))}
-      </ul>
-      
-      <Link
-        href={link}
-        className="text-blue-600 font-medium hover:text-blue-800 transition duration-300 inline-block mt-auto"
+      <Card 
+        className={`h-full flex flex-col ${className}`}
+        padding="p-6 md:p-8"
+        shadow="lg"
+        hoverEffect={true}
       >
-        Learn more →
-      </Link>
+        <div className="text-blue-600 mb-6">
+          <div className="bg-blue-50 inline-flex p-4 rounded-full">
+            <IconComponent icon={icon} />
+          </div>
+        </div>
+        
+        <h3 className="text-xl font-bold mb-3 text-blue-900">{title}</h3>
+        
+        <p className="text-gray-600 mb-6">
+          {description}
+        </p>
+        
+        <ul className="space-y-3 mb-8 flex-grow">
+          {features.map((feature, index) => (
+            <li key={index} className="flex items-start">
+              <FaCheck className="text-green-500 mr-3 mt-1 flex-shrink-0" />
+              <span className="text-gray-700">{feature}</span>
+            </li>
+          ))}
+        </ul>
+        
+        <div className="mt-auto">
+          <Button 
+            href={link} 
+            variant="outline"
+            rightIcon={<span className="text-xs">→</span>}
+          >
+            {cta}
+          </Button>
+        </div>
+      </Card>
     </motion.div>
   );
 };

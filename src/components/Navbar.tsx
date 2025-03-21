@@ -2,20 +2,21 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FaPhone } from 'react-icons/fa';
+import { usePathname } from 'next/navigation';
+import { FaPhone, FaBars, FaTimes } from 'react-icons/fa';
 import { contactInfo } from '@/utils/config';
+import Container from './Container';
+import Button from './Button';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
+  // Update scrolled state on scroll
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 10);
     };
 
     // Initial check on mount
@@ -43,7 +44,6 @@ const Navbar = () => {
     
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      // Check if the click is outside the mobile menu and not on the toggle button
       if (isOpen && !target.closest('.mobile-menu') && !target.closest('.mobile-toggle')) {
         setIsOpen(false);
       }
@@ -53,44 +53,59 @@ const Navbar = () => {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isOpen]);
 
+  // Nav links with active state handling
+  const navLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/services', label: 'Services' },
+    { href: '/gallery', label: 'Gallery' },
+    { href: '/about', label: 'About' },
+    { href: '/contact', label: 'Contact' },
+  ];
+
   return (
     <nav 
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled || isOpen ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
       }`}
     >
-      <div className="container mx-auto px-4 md:px-6">
+      <Container>
         <div className="flex justify-between items-center">
+          {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 relative z-20">
             <div className={`font-bold text-xl sm:text-2xl ${scrolled || isOpen ? 'text-blue-600' : 'text-white'}`}>
-              Clear Water <span className={scrolled || isOpen ? 'text-blue-800' : 'text-blue-200'}>Pool Service</span>
+              Clear Water <span className={scrolled || isOpen ? 'text-blue-900' : 'text-blue-200'}>Pool Service</span>
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
-            <Link href="/" className={`${scrolled ? 'text-gray-700' : 'text-white'} hover:text-blue-400 font-medium transition-colors`}>
-              Home
-            </Link>
-            <Link href="/services" className={`${scrolled ? 'text-gray-700' : 'text-white'} hover:text-blue-400 font-medium transition-colors`}>
-              Services
-            </Link>
-            <Link href="/gallery" className={`${scrolled ? 'text-gray-700' : 'text-white'} hover:text-blue-400 font-medium transition-colors`}>
-              Gallery
-            </Link>
-            <Link href="/about" className={`${scrolled ? 'text-gray-700' : 'text-white'} hover:text-blue-400 font-medium transition-colors`}>
-              About
-            </Link>
-            <Link href="/contact" className={`${scrolled ? 'text-gray-700' : 'text-white'} hover:text-blue-400 font-medium transition-colors`}>
-              Contact
-            </Link>
-            <Link 
-              href="/contact" 
-              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300 ml-2"
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-1 lg:gap-2">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link 
+                  key={link.href} 
+                  href={link.href} 
+                  className={`px-3 py-2 rounded-md transition-colors ${
+                    isActive 
+                      ? (scrolled ? 'text-blue-600 bg-blue-50' : 'text-white bg-white/10') 
+                      : (scrolled ? 'text-gray-700 hover:text-blue-600 hover:bg-blue-50' : 'text-white hover:bg-white/10')
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            <Button 
+              href="/contact"
+              variant="primary"
+              size="sm"
+              className="ml-2"
             >
               Request a Quote
-            </Link>
+            </Button>
           </div>
 
+          {/* Phone Number - Desktop */}
           <div className="hidden md:flex items-center space-x-2">
             <FaPhone className={scrolled ? "text-blue-600" : "text-white"} />
             <a 
@@ -101,37 +116,20 @@ const Navbar = () => {
             </a>
           </div>
 
+          {/* Mobile Menu Button */}
           <button
-            className={`md:hidden relative z-20 p-1 ${scrolled || isOpen ? 'text-gray-700' : 'text-white'} mobile-toggle`}
+            className={`md:hidden relative z-20 p-2 rounded-md ${
+              isOpen 
+                ? 'bg-blue-50' 
+                : (scrolled ? 'text-gray-700' : 'text-white')
+            } mobile-toggle`}
             onClick={(e) => {
               e.stopPropagation();
               setIsOpen(!isOpen);
             }}
             aria-label="Toggle menu"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {isOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
+            {isOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
 
@@ -139,49 +137,36 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden mt-4 bg-white rounded-lg shadow-lg p-6 absolute top-full left-0 right-0 mx-4 border-t border-gray-100 mobile-menu">
             <div className="flex flex-col space-y-4">
-              <Link
-                href="/"
-                className="text-gray-700 hover:text-blue-600 font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                href="/services"
-                className="text-gray-700 hover:text-blue-600 font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                Services
-              </Link>
-              <Link
-                href="/gallery"
-                className="text-gray-700 hover:text-blue-600 font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                Gallery
-              </Link>
-              <Link
-                href="/about"
-                className="text-gray-700 hover:text-blue-600 font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                href="/contact"
-                className="text-gray-700 hover:text-blue-600 font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact
-              </Link>
-              <Link
-                href="/contact"
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300 text-center mt-2"
-                onClick={() => setIsOpen(false)}
-              >
-                Request a Quote
-              </Link>
-              <div className="flex items-center space-x-2 text-blue-600 pt-4">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`p-2 rounded-md ${
+                      isActive 
+                        ? 'bg-blue-50 text-blue-600 font-medium' 
+                        : 'text-gray-700 hover:bg-gray-50'
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+              
+              <div className="pt-4 border-t border-gray-100">
+                <Button
+                  href="/contact"
+                  variant="primary"
+                  fullWidth
+                  onClick={() => setIsOpen(false)}
+                >
+                  Request a Quote
+                </Button>
+              </div>
+              
+              <div className="flex items-center space-x-2 text-blue-600 pt-2">
                 <FaPhone />
                 <a href={`tel:${contactInfo.phone.replace(/[^0-9]/g, '')}`} className="font-medium">
                   {contactInfo.phone}
@@ -190,7 +175,7 @@ const Navbar = () => {
             </div>
           </div>
         )}
-      </div>
+      </Container>
     </nav>
   );
 };

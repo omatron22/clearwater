@@ -24,35 +24,35 @@ const PlaceholderImage = ({
   category = 'default',
   fill = false
 }: PlaceholderImageProps) => {
-  // Define gradients based on category
+  // Define gradients based on category - improved color schemes
   const gradients: Record<string, string> = {
     default: 'from-blue-400 to-blue-600',
-    hero: 'from-blue-500 to-indigo-700',
-    pool: 'from-blue-400 to-cyan-600',
-    before: 'from-yellow-500 to-red-600',
-    after: 'from-green-400 to-blue-500',
-    maintenance: 'from-blue-300 to-blue-500',
-    seasonal: 'from-orange-300 to-blue-400',
-    'before-after': 'from-red-400 to-green-500',
-    people: 'from-indigo-400 to-purple-600',
-    team: 'from-indigo-400 to-purple-600',
-    testimonial: 'from-blue-300 to-indigo-500',
-    map: 'from-blue-200 to-blue-600',
+    hero: 'from-blue-600 to-indigo-800',
+    pool: 'from-cyan-400 to-blue-600',
+    before: 'from-orange-400 to-red-600',
+    after: 'from-emerald-400 to-teal-600',
+    maintenance: 'from-blue-400 to-indigo-600',
+    seasonal: 'from-amber-300 to-blue-500',
+    'before-after': 'from-orange-400 to-emerald-500',
+    people: 'from-violet-400 to-purple-600',
+    team: 'from-indigo-500 to-violet-700',
+    testimonial: 'from-blue-400 to-indigo-600',
+    map: 'from-blue-300 to-blue-700',
   };
 
   const gradientClass = gradients[category] || gradients.default;
   
   return (
     <div 
-      className={`relative overflow-hidden ${className}`}
+      className={`relative overflow-hidden rounded-md ${className}`}
       style={fill ? { width: '100%', height: '100%', position: 'relative' } : {}}
     >
       <div 
-        className={`absolute inset-0 bg-gradient-to-br ${gradientClass} flex items-center justify-center text-white text-opacity-70`}
+        className={`absolute inset-0 bg-gradient-to-br ${gradientClass} flex items-center justify-center text-white`}
       >
         <div className="text-center p-4">
-          <div className="text-sm font-bold uppercase">{category}</div>
-          <div className="text-xs opacity-80">{alt}</div>
+          <div className="text-sm font-bold uppercase tracking-wide">{category}</div>
+          <div className="text-xs opacity-80 mt-1">{alt}</div>
         </div>
       </div>
       

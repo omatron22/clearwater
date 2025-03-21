@@ -3,12 +3,45 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { companyInfo } from '@/utils/config';
 
-const inter = Inter({ subsets: ['latin'] });
+// Configure Inter font
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
-  title: 'Clear Water Pool Service | Ventura County',
-  description: 'Professional pool maintenance services in Ventura County by Clear Water Pool Service',
+  title: {
+    default: `${companyInfo.name} | ${companyInfo.tagline}`,
+    template: `%s | ${companyInfo.name}`,
+  },
+  description: companyInfo.description,
+  keywords: [
+    'pool service',
+    'pool maintenance',
+    'pool cleaning',
+    'swimming pool',
+    'Ventura County',
+    'pool water treatment',
+    'Clear Water Pool Service',
+  ],
+  authors: [
+    {
+      name: companyInfo.owner,
+      url: '/',
+    },
+  ],
+  creator: companyInfo.name,
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: '/',
+    title: companyInfo.name,
+    description: companyInfo.description,
+    siteName: companyInfo.name,
+  },
 };
 
 export default function RootLayout({
@@ -17,11 +50,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <body className={inter.className}>
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <div className="flex min-h-screen flex-col">
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
