@@ -2,137 +2,25 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #1a202c;
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --primary-foreground: #ffffff;
-  --secondary: #4f46e5;
-  --secondary-foreground: #ffffff;
-  --accent: #3b82f6;
-  --accent-foreground: #ffffff;
-  --muted: #f3f4f6;
-  --muted-foreground: #6b7280;
-  --card: #ffffff;
-  --card-foreground: #1a202c;
-  --border: #e5e7eb;
-  --input: #e5e7eb;
-  --ring: #93c5fd;
-  --radius: 0.5rem;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #1a202c;
-    --foreground: #f3f4f6;
-    --card: #2d3748;
-    --card-foreground: #f3f4f6;
-    --border: #4a5568;
-    --input: #4a5568;
-    --ring: #2563eb;
-    --muted: #2d3748;
-    --muted-foreground: #a0aec0;
+    --background: #0a0a0a;
+    --foreground: #ededed;
   }
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Improve default focus styles */
-:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
-/* Smooth transitions for buttons and interactive elements */
-a, button {
-  transition: all 0.2s ease;
-}
-
-/* Better image rendering */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Customized scrollbar for webkit browsers */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c5c5c5;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
-}
-
-/* Container responsive padding */
-.container {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-@media (min-width: 640px) {
-  .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-/* Improved form elements */
-input, select, textarea {
-  font-family: inherit;
-  border-radius: var(--radius);
-  border: 1px solid var(--input);
-  padding: 0.75rem 1rem;
-}
-
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--ring);
-  border-color: var(--ring);
-}
-
-/* Better heading line heights */
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
-}
-
-/* Utilities */
-.text-balance {
-  text-wrap: balance;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  font-family: Arial, Helvetica, sans-serif;
 }
