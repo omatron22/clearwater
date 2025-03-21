@@ -20,11 +20,14 @@ interface MapOptions {
   mapTypeId: string;
   mapTypeControl: boolean;
   streetViewControl: boolean;
-  restriction: {
+  fullscreenControl?: boolean;
+  zoomControl?: boolean;
+  restriction?: {
     latLngBounds: MapBounds;
     strictBounds: boolean;
   };
   styles: MapStyle[];
+  setOptions?: (options: Partial<MapOptions>) => void;
 }
 
 interface MapBounds {
@@ -32,14 +35,6 @@ interface MapBounds {
   south: number;
   east: number;
   west: number;
-}
-
-interface MarkerOptions {
-  position: LatLng;
-  map: GoogleMap;
-  title: string;
-  icon: CircleSymbol;
-  animation: number;
 }
 
 interface CircleSymbol {
@@ -51,47 +46,70 @@ interface CircleSymbol {
   scale: number;
 }
 
+// Google Maps Data Layer types
+interface DataStyleOptions {
+  fillColor: string;
+  fillOpacity: number;
+  strokeColor: string;
+  strokeWeight: number;
+  strokeOpacity: number;
+  visible: boolean;
+}
+
+interface DataFeature {
+  getProperty: (name: string) => string;
+}
+
+interface DataStyleFunction {
+  (feature: DataFeature): DataStyleOptions;
+}
+
+interface DataLayerOptions {
+  map?: GoogleMap;
+}
+
+interface DataLayer {
+  loadGeoJson: (url: string, options: DataLayerOptions, callback?: () => void) => void;
+  setStyle: (style: DataStyleFunction) => void;
+}
+
+// Google Maps core types
+interface GoogleMap {
+  setCenter: (latLng: LatLng) => void;
+  setZoom: (zoom: number) => void;
+  setOptions: (options: Partial<MapOptions>) => void;
+  data?: DataLayer;
+}
+
+interface MarkerOptions {
+  position: LatLng;
+  map: GoogleMap;
+  title: string;
+  icon: CircleSymbol;
+  animation: number;
+}
+
+interface GoogleMarker {
+  addListener: (event: string, handler: () => void) => void;
+}
+
 interface InfoWindowOptions {
   content: string;
 }
 
-interface PolygonOptions {
-  paths: LatLng[];
-  strokeColor: string;
-  strokeOpacity: number;
-  strokeWeight: number;
-  fillColor: string;
-  fillOpacity: number;
-}
-
-// Create types for Google Maps objects
-type GoogleMap = {
-  setCenter: (latLng: LatLng) => void;
-  setZoom: (zoom: number) => void;
-};
-
-type GoogleMarker = {
-  addListener: (event: string, handler: () => void) => void;
-};
-
-type GoogleInfoWindow = {
+interface GoogleInfoWindow {
   open: (map: GoogleMap, marker: GoogleMarker) => void;
-};
-
-type GooglePolygon = {
-  setMap: (map: GoogleMap | null) => void;
-};
+}
 
 // Properly type the Google Maps API
 declare global {
   interface Window {
-    initMap: (() => void) | null;
+    [key: string]: unknown;
     google: {
       maps: {
         Map: new (element: HTMLElement, options: MapOptions) => GoogleMap;
         Marker: new (options: MarkerOptions) => GoogleMarker;
         InfoWindow: new (options: InfoWindowOptions) => GoogleInfoWindow;
-        Polygon: new (options: PolygonOptions) => GooglePolygon;
         SymbolPath: {
           CIRCLE: number;
         };
@@ -142,10 +160,8 @@ export default function VenturaCountyMap(): ReactElement {
         mapTypeId: 'roadmap',
         mapTypeControl: false,
         streetViewControl: false,
-        restriction: {
-          latLngBounds: venturaBounds,
-          strictBounds: false,
-        },
+        fullscreenControl: false,
+        zoomControl: true,
         styles: [
           // Custom styling to match website colors
           { featureType: "water", elementType: "geometry", stylers: [{ color: "#e9e9e9" }, { lightness: 17 }] },
@@ -156,6 +172,33 @@ export default function VenturaCountyMap(): ReactElement {
           { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#3b82f6" }] }
         ]
       });
+
+      // Add county boundary using the Data layer
+      if (map.data) {
+        // Use the Data API to load Ventura County's boundaries from a GeoJSON file
+        // This creates a much more detailed boundary than a simple polygon
+        map.data.loadGeoJson(
+          // Use the Data layer to style the boundary
+          'https://raw.githubusercontent.com/OpenDataDE/State-zip-code-GeoJSON/master/ca-counties.geojson',
+          {},
+          () => {
+            // Style the county layer to highlight only Ventura County
+            map.data?.setStyle((feature) => {
+              // Check if this is Ventura County
+              const isVenturaCounty = feature.getProperty('NAME') === 'Ventura';
+              
+              return {
+                fillColor: isVenturaCounty ? '#3b82f6' : 'transparent',
+                fillOpacity: isVenturaCounty ? 0.15 : 0,
+                strokeColor: isVenturaCounty ? '#3b82f6' : 'transparent',
+                strokeWeight: isVenturaCounty ? 2 : 0,
+                strokeOpacity: isVenturaCounty ? 0.8 : 0,
+                visible: isVenturaCounty
+              };
+            });
+          }
+        );
+      }
 
       // Define a circle appearance for service area markers
       const circleSymbol: CircleSymbol = {
@@ -187,33 +230,27 @@ export default function VenturaCountyMap(): ReactElement {
         });
       });
 
-      // Draw a polygon around Ventura County
-      const venturaCountyBoundary: LatLng[] = [
-        { lat: 34.5598, lng: -119.4520 }, // Northwest corner
-        { lat: 34.5121, lng: -118.6768 }, // Northeast corner
-        { lat: 34.0459, lng: -118.8876 }, // Southeast corner
-        { lat: 34.0637, lng: -119.4814 }, // Southwest corner
-      ];
-
-      const venturaPolygon = new window.google.maps.Polygon({
-        paths: venturaCountyBoundary,
-        strokeColor: '#3b82f6',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#3b82f6',
-        fillOpacity: 0.15,
+      // Add restriction to prevent panning too far from Ventura County
+      map.setOptions({
+        restriction: {
+          latLngBounds: venturaBounds,
+          strictBounds: false,
+        }
       });
-
-      venturaPolygon.setMap(map);
     };
 
+    // Create a unique callback name
+    const callbackName = `initVenturaMap_${Date.now()}`;
+    
     // Load Google Maps API script
     const loadGoogleMapsAPI = (): void => {
+      // Create a unique callback function
+      window[callbackName] = initMap;
+      
       const googleMapsScript = document.createElement('script');
-      googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&callback=initMap`;
+      googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&callback=${callbackName}`;
       googleMapsScript.async = true;
       googleMapsScript.defer = true;
-      window.initMap = initMap;
       document.head.appendChild(googleMapsScript);
     };
 
@@ -224,23 +261,29 @@ export default function VenturaCountyMap(): ReactElement {
       initMap();
     }
 
+    // Clean up
     return () => {
-      // Clean up if needed
-      if (window.initMap) {
-        window.initMap = null;
+      // Remove the specific callback we created
+      if (window[callbackName]) {
+        delete window[callbackName];
       }
     };
-  }, [/* venturaBounds is static */]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // No dependencies needed as venturaBounds is defined outside
 
   return (
-    <div className="relative">
-      <div 
-        ref={mapRef} 
-        className="h-96 w-full rounded-xl shadow-lg bg-blue-50"
-      />
-      <div className="absolute bottom-4 left-4 bg-white py-2 px-4 rounded-lg shadow-md text-sm">
-        <p className="font-bold text-blue-900 mb-1">Our Service Areas:</p>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-1 text-gray-600">
+    <div className="space-y-4">
+      {/* Map Container */}
+      <div className="relative">
+        <div 
+          ref={mapRef} 
+          className="h-96 w-full rounded-xl shadow-lg bg-blue-50"
+        />
+      </div>
+      
+      {/* Service Areas Legend - Moved below the map */}
+      <div className="bg-white py-3 px-4 rounded-lg shadow-md text-sm">
+        <p className="font-bold text-blue-900 mb-2">Areas We Serve:</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-1 text-gray-600">
           {serviceAreas.map(area => (
             <div key={area.name} className="flex items-center">
               <span className="h-2 w-2 bg-blue-600 rounded-full mr-1"></span>
@@ -248,6 +291,9 @@ export default function VenturaCountyMap(): ReactElement {
             </div>
           ))}
         </div>
+        <p className="mt-3 text-gray-600 italic">
+          Not sure if we service your area? Contact us and we&apos;ll be happy to let you know!
+        </p>
       </div>
     </div>
   );

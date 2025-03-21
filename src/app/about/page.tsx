@@ -6,12 +6,6 @@ import { FaSwimmingPool, FaWater, FaLeaf, FaHandshake } from 'react-icons/fa';
 import VenturaCountyMap from '@/components/VenturaCountyMap';
 
 export default function AboutPage() {
-  // Service areas in Ventura County 
-  const serviceAreas = [
-    'Ventura', 'Oxnard', 'Camarillo', 'Thousand Oaks', 
-    'Simi Valley', 'Moorpark', 'Ojai', 'Santa Paula',
-    'Fillmore', 'Port Hueneme', 'Newbury Park', 'Oak Park'
-  ];
 
   return (
     <>
@@ -162,24 +156,6 @@ export default function AboutPage() {
             
             <div className="bg-white rounded-lg shadow-xl overflow-hidden">
             <VenturaCountyMap />
-              <div className="p-8">
-                <h3 className="text-xl font-bold mb-4 text-blue-900">Areas We Serve:</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {serviceAreas.map((area, index) => (
-                    <div key={index} className="col-span-1">
-                      <div className="space-y-2">
-                        <div className="flex items-start">
-                          <span className="mr-2">•</span> 
-                          <span>{area}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-6 text-gray-600">
-                  Not sure if we service your area? Contact us and we&apos;ll be happy to let you know!
-                </p>
-              </div>
             </div>
           </div>
         </div>
