@@ -3,16 +3,12 @@
 
 import Image, { ImageProps } from 'next/image';
 import { useState } from 'react';
-import PlaceholderImage from './PlaceholderImage';
+import { imageConfig } from '@/utils/config';
 
-// Get environment flag for placeholders
-// In a real app, you might use an env var like process.env.NEXT_PUBLIC_USE_PLACEHOLDERS
-const USE_PLACEHOLDERS = true;
-
-interface ResponsiveImageProps extends Omit<ImageProps, 'onError'> {
+// Create a new interface that doesn't include placeholder or onError from ImageProps
+interface ResponsiveImageProps extends Omit<ImageProps, 'onError' | 'placeholder'> {
   category?: string;
-  // Removed fallbackSrc as it's not currently used
-  // Can be added back when implementing fallback functionality
+  usePlaceholder?: boolean;
 }
 
 /**
@@ -29,23 +25,59 @@ const ResponsiveImage = ({
   className = '',
   style = {},
   category = 'default',
-  // Removed fallbackSrc from props destructuring
+  usePlaceholder = imageConfig.usePlaceholders,
   ...props
 }: ResponsiveImageProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
+  // Generate gradient based on image category
+  const getGradient = () => {
+    const gradients: Record<string, string> = {
+      default: 'from-blue-400 to-blue-600',
+      hero: 'from-blue-500 to-indigo-700',
+      pool: 'from-blue-400 to-cyan-600',
+      before: 'from-yellow-500 to-red-600',
+      after: 'from-green-400 to-blue-500',
+      maintenance: 'from-blue-300 to-blue-500',
+      seasonal: 'from-orange-300 to-blue-400',
+      'before-after': 'from-red-400 to-green-500',
+      team: 'from-indigo-400 to-purple-600',
+      testimonial: 'from-blue-300 to-indigo-500',
+      map: 'from-blue-200 to-blue-600',
+    };
+    
+    return gradients[category] || gradients.default;
+  };
+
   // If we're using placeholders globally or this image has an error
-  if (USE_PLACEHOLDERS || hasError) {
+  if (usePlaceholder || hasError) {
     return (
-      <PlaceholderImage
-        alt={alt as string}
-        category={category}
-        fill={fill}
-        width={typeof width === 'number' ? width : undefined}
-        height={typeof height === 'number' ? height : undefined}
-        className={className}
-      />
+      <div 
+        className={`relative overflow-hidden ${className}`}
+        style={fill ? { width: '100%', height: '100%', position: 'relative', ...style } : { ...style }}
+      >
+        <div 
+          className={`absolute inset-0 bg-gradient-to-br ${getGradient()} flex items-center justify-center text-white text-opacity-70`}
+        >
+          <div className="text-center p-4">
+            <div className="text-sm font-bold uppercase">{category}</div>
+            <div className="text-xs opacity-80">{alt}</div>
+          </div>
+        </div>
+        
+        {fill ? (
+          <div style={{ width: '100%', height: '100%', position: 'relative' }} />
+        ) : (
+          <div 
+            style={{ 
+              width: '100%', 
+              paddingBottom: `${(typeof height === 'number' && typeof width === 'number') ? 
+                (height / width) * 100 : 75}%`,
+            }} 
+          />
+        )}
+      </div>
     );
   }
 
