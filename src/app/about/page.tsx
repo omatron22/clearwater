@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaSwimmingPool, FaWater, FaLeaf, FaHandshake } from 'react-icons/fa';
-import VenturaCountyMap from '@/components/VenturaCountyMap';
 import Image from 'next/image';
 
 export default function AboutPage() {
@@ -159,19 +158,7 @@ export default function AboutPage() {
             </div>
           </div>
           
-          {/* Service Area */}
-          <div className="py-16">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Our Service Area</h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Clear Water Pool Service proudly serves pool owners throughout Ventura County
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-lg shadow-xl overflow-hidden">
-            <VenturaCountyMap />
-            </div>
-          </div>
+
         </div>
       </section>
 

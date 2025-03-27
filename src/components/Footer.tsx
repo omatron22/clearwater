@@ -50,14 +50,14 @@ const Footer = () => {
                 </a>
               </div>
               <div className="flex items-center space-x-3">
-                <FaEnvelope className="w-4 h-4" />
-                <a 
-                  href="mailto:clearwater3317@yahoo.com"
-                  className="hover:text-white transition-colors"
-                >
-                  clearwater3317@yahoo.com
-                </a>
-              </div>
+  <FaEnvelope className="w-4 h-4" />
+  <Link 
+    href="/contact" 
+    className="hover:text-white transition-colors"
+  >
+    Request a Quote
+  </Link>
+</div>
               <div className="flex items-start space-x-3">
                 <FaMapMarkerAlt className="w-4 h-4 mt-1" />
                 <span>Serving all of Ventura County</span>

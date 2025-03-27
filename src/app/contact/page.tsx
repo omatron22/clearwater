@@ -134,8 +134,8 @@ export default function ContactPage() {
                       <FaEnvelope className="w-6 h-6" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-blue-900">Email</h3>
-                      <p className="text-gray-600 mt-1">clearwater3317@yahoo.com</p>
+                    <h3 className="text-xl font-bold text-blue-900">Request a Quote</h3>
+                    <p className="text-gray-600 mt-1">Fill out our simple form</p>
                       <p className="text-gray-500 text-sm mt-1">We&apos;ll respond within 24 hours</p>
                     </div>
                   </div>
@@ -343,6 +343,21 @@ export default function ContactPage() {
         </div>
       </section>
 
+
+      {/* Map Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Our Service Area</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Proudly serving pool owners throughout Ventura County
+            </p>
+          </div>
+
+          <VenturaCountyMap />
+        </div>
+      </section>
+      
       {/* FAQ Section */}
       <section className="py-16 bg-blue-50">
         <div className="container mx-auto px-4">
@@ -400,19 +415,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Our Service Area</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Proudly serving pool owners throughout Ventura County
-            </p>
-          </div>
 
-          <VenturaCountyMap />
-        </div>
-      </section>
     </>
   );
 }
