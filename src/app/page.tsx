@@ -81,7 +81,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
             >
               <div className="text-blue-600 mb-4">
@@ -98,7 +98,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
             >
               <div className="text-blue-600 mb-4">
@@ -114,8 +114,8 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
             >
               <div className="text-blue-600 mb-4">
@@ -131,8 +131,8 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
             >
               <div className="text-blue-600 mb-4">
@@ -159,7 +159,13 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Service 1 */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+              className="bg-white rounded-lg shadow-lg overflow-hidden"
+            >
               <div className="p-8">
                 <div className="text-blue-600 mb-4">
                   <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -177,10 +183,16 @@ export default function Home() {
                   Learn More →
                 </Link>
               </div>
-            </div>
+            </motion.div>
 
             {/* Service 2 */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+              className="bg-white rounded-lg shadow-lg overflow-hidden"
+            >
               <div className="p-8">
                 <div className="text-blue-600 mb-4">
                   <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -198,10 +210,16 @@ export default function Home() {
                   Learn More →
                 </Link>
               </div>
-            </div>
+            </motion.div>
 
             {/* Service 3 */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+              className="bg-white rounded-lg shadow-lg overflow-hidden"
+            >
               <div className="p-8">
                 <div className="text-blue-600 mb-4">
                   <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -219,7 +237,7 @@ export default function Home() {
                   Learn More →
                 </Link>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           <div className="text-center mt-12">
@@ -235,45 +253,57 @@ export default function Home() {
 
       {/* Before & After */}
       <section className="py-16 md:py-24 bg-gray-50">
-  <div className="container mx-auto px-4">
-    <div className="text-center mb-12">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">See The Difference</h2>
-      <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-        Our results speak for themselves. Here&apos;s what we can do for your pool.
-      </p>
-    </div>
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">See The Difference</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Our results speak for themselves. Here&apos;s what we can do for your pool.
+            </p>
+          </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
-        <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
-          <span className="text-white text-xl font-bold">BEFORE</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+              className="relative h-80 rounded-lg overflow-hidden shadow-lg"
+            >
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
+                <span className="text-white text-xl font-bold">BEFORE</span>
+              </div>
+              <Image 
+                src="/images/before2.JPG" 
+                alt="Pool before our service" 
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+                className="object-cover"
+              />
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+              className="relative h-80 rounded-lg overflow-hidden shadow-lg"
+            >
+              <div className="absolute inset-0 bg-black/20 flex items-center justify-center z-10">
+                <span className="text-white text-xl font-bold">AFTER</span>
+              </div>
+              <Image 
+                src="/images/after2.JPG" 
+                alt="Pool after our service" 
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+                className="object-cover"
+              />
+            </motion.div>
+          </div>
         </div>
-        <Image 
-          src="/images/before2.JPG" 
-          alt="Pool before our service" 
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          priority
-          className="object-cover"
-        />
-      </div>
-      
-      <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
-        <div className="absolute inset-0 bg-black/20 flex items-center justify-center z-10">
-          <span className="text-white text-xl font-bold">AFTER</span>
-        </div>
-        <Image 
-          src="/images/after2.JPG" 
-          alt="Pool after our service" 
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          priority
-          className="object-cover"
-        />
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Testimonials */}
       <section className="py-16 md:py-24">
@@ -291,7 +321,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="bg-white p-8 rounded-lg shadow-md"
             >
               <svg className="text-blue-200 w-10 h-10 mb-4" fill="currentColor" viewBox="0 0 24 24">
@@ -308,8 +338,8 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="bg-white p-8 rounded-lg shadow-md"
             >
               <svg className="text-blue-200 w-10 h-10 mb-4" fill="currentColor" viewBox="0 0 24 24">

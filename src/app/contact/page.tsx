@@ -129,11 +129,25 @@ export default function ContactPage() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
             >
-              <h2 className="text-3xl font-bold mb-6 text-blue-900">Get In Touch</h2>
+              <motion.h2 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
+                className="text-3xl font-bold mb-6 text-blue-900"
+              >
+                Get In Touch
+              </motion.h2>
               
-              <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+                className="bg-white rounded-xl shadow-lg p-8 mb-8"
+              >
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
                     <div className="bg-blue-100 rounded-full p-3 text-blue-600">
@@ -168,9 +182,15 @@ export default function ContactPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="bg-blue-50 rounded-xl p-8">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+                className="bg-blue-50 rounded-xl p-8"
+              >
                 <h3 className="text-xl font-bold mb-4 text-blue-900">Why Choose Clear Water Pool Service?</h3>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">
@@ -204,7 +224,7 @@ export default function ContactPage() {
                     <span>Transparent pricing with no hidden fees</span>
                   </li>
                 </ul>
-              </div>
+              </motion.div>
             </motion.div>
 
             {/* Quote Request Form */}
@@ -212,12 +232,25 @@ export default function ContactPage() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
             >
-              <h2 className="text-3xl font-bold mb-6 text-blue-900">Request a Quote</h2>
+              <motion.h2 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
+                className="text-3xl font-bold mb-6 text-blue-900"
+              >
+                Request a Quote
+              </motion.h2>
               
               {isSubmitted ? (
-                <div className="bg-green-100 border border-green-400 text-green-700 px-8 py-12 rounded-xl text-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="bg-green-100 border border-green-400 text-green-700 px-8 py-12 rounded-xl text-center"
+                >
                   <svg className="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -230,9 +263,16 @@ export default function ContactPage() {
                   >
                     Submit Another Request
                   </button>
-                </div>
+                </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-8">
+                <motion.form 
+                  onSubmit={handleSubmit} 
+                  className="bg-white rounded-xl shadow-lg p-8"
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+                >
                   {errorMessage && (
                     <div className="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
                       <strong className="font-bold">Error: </strong>
@@ -359,7 +399,7 @@ export default function ContactPage() {
                     <a href="https://policies.google.com/privacy" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer"> Privacy Policy</a> and
                     <a href="https://policies.google.com/terms" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer"> Terms of Service</a> apply.
                   </p>
-                </form>
+                </motion.form>
               )}
             </motion.div>
           </div>
@@ -371,13 +411,34 @@ export default function ContactPage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Our Service Area</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <motion.h2 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
+              className="text-3xl md:text-4xl font-bold mb-4 text-blue-900"
+            >
+              Our Service Area
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
+              className="text-lg text-gray-600 max-w-3xl mx-auto"
+            >
               Proudly serving pool owners throughout Ventura County
-            </p>
+            </motion.p>
           </div>
 
-          <VenturaCountyMap />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.2 }}
+          >
+            <VenturaCountyMap />
+          </motion.div>
         </div>
       </section>
       
@@ -385,54 +446,98 @@ export default function ContactPage() {
       <section className="py-16 bg-blue-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Frequently Asked Questions</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <motion.h2 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
+              className="text-3xl md:text-4xl font-bold mb-4 text-blue-900"
+            >
+              Frequently Asked Questions
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
+              className="text-lg text-gray-600 max-w-3xl mx-auto"
+            >
               Have questions about our services? Find quick answers below
-            </p>
+            </motion.p>
           </div>
 
           <div className="max-w-3xl mx-auto">
             <div className="space-y-6">
-              <div className="bg-white rounded-lg shadow-md p-6">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+                className="bg-white rounded-lg shadow-md p-6"
+              >
                 <h3 className="text-xl font-bold mb-3 text-blue-900">How often do you service my pool?</h3>
                 <p className="text-gray-600">
                   We offer weekly maintenance services. For most pools in Ventura County, 
                   we recommend weekly service to maintain optimal water quality and cleanliness.
                 </p>
-              </div>
+              </motion.div>
               
-              <div className="bg-white rounded-lg shadow-md p-6">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+                className="bg-white rounded-lg shadow-md p-6"
+              >
                 <h3 className="text-xl font-bold mb-3 text-blue-900">What&apos;s included in your regular maintenance service?</h3>
                 <p className="text-gray-600">
                   Our regular maintenance includes water testing and chemical balancing, skimming surface debris, 
                   vacuuming the pool floor, cleaning waterline tiles, emptying skimmer and pump baskets, 
                   checking equipment operation, and filter cleaning as needed.
                 </p>
-              </div>
+              </motion.div>
               
-              <div className="bg-white rounded-lg shadow-md p-6">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+                className="bg-white rounded-lg shadow-md p-6"
+              >
                 <h3 className="text-xl font-bold mb-3 text-blue-900">Do I need to be home during service visits?</h3>
                 <p className="text-gray-600">
                   No, you don&apos;t need to be home. As long as we have access to your pool area, 
                   we can perform our service while you&apos;re away. We&apos;ll leave a service report detailing what was done.
                 </p>
-              </div>
+              </motion.div>
               
-              <div className="bg-white rounded-lg shadow-md p-6">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+                className="bg-white rounded-lg shadow-md p-6"
+              >
                 <h3 className="text-xl font-bold mb-3 text-blue-900">Do you offer pool repairs?</h3>
                 <p className="text-gray-600">
                   We focus exclusively on pool maintenance rather than repairs. This allows us to specialize in keeping your 
                   water pristine without requiring costly licensing for repair work. For repairs, we can recommend trusted partners.
                 </p>
-              </div>
+              </motion.div>
               
-              <div className="bg-white rounded-lg shadow-md p-6">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+                viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
+                className="bg-white rounded-lg shadow-md p-6"
+              >
                 <h3 className="text-xl font-bold mb-3 text-blue-900">What areas do you service?</h3>
                 <p className="text-gray-600">
                   We service all of Ventura County, including Ventura, Oxnard, Camarillo, Thousand Oaks, 
                   Simi Valley, Moorpark, Ojai, and surrounding communities.
                 </p>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>

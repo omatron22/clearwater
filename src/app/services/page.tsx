@@ -42,7 +42,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
             >
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
                   <Image 
@@ -60,7 +60,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="flex flex-col justify-center"
             >
               <div className="text-blue-600 mb-4">
@@ -113,7 +113,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="flex flex-col justify-center order-2 lg:order-1"
             >
               <div className="text-blue-600 mb-4">
@@ -163,7 +163,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="order-1 lg:order-2"
             >
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
@@ -185,10 +185,9 @@ export default function ServicesPage() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
             >
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
-                {/* You'll add the actual image later */}
                 <Image 
                     src="/images/pool3.jpg" 
                     alt="Pool before our service" 
@@ -204,7 +203,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="flex flex-col justify-center"
             >
               <div className="text-blue-600 mb-4">
@@ -267,8 +266,8 @@ export default function ServicesPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="bg-white rounded-lg shadow-lg p-8"
             >
               <div className="text-blue-600 mb-4">
@@ -286,8 +285,8 @@ export default function ServicesPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="bg-white rounded-lg shadow-lg p-8"
             >
               <div className="text-blue-600 mb-4">
@@ -305,8 +304,8 @@ export default function ServicesPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
               className="bg-white rounded-lg shadow-lg p-8"
             >
               <div className="text-blue-600 mb-4">
@@ -328,16 +327,37 @@ export default function ServicesPage() {
       <section className="py-16 bg-blue-900 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Experience Hassle-Free Pool Maintenance?</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Contact us today for a free quote and join our satisfied customers throughout Ventura County.
-            </p>
-            <Link
-              href="/contact"
-              className="bg-white text-blue-900 hover:bg-blue-100 font-bold py-3 px-8 rounded-md text-lg transition duration-300 inline-block"
+            <motion.h2 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
+              className="text-3xl md:text-4xl font-bold mb-6"
             >
-              Get Your Free Quote
-            </Link>
+              Ready to Experience Hassle-Free Pool Maintenance?
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
+              className="text-xl mb-8 max-w-2xl mx-auto"
+            >
+              Contact us today for a free quote and join our satisfied customers throughout Ventura County.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
+            >
+              <Link
+                href="/contact"
+                className="bg-white text-blue-900 hover:bg-blue-100 font-bold py-3 px-8 rounded-md text-lg transition duration-300 inline-block"
+              >
+                Get Your Free Quote
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
