@@ -341,10 +341,10 @@ export default function Home() {
                 Get Your Free Quote
               </Link>
               <a
-                href="tel:8057663299"
+                href="tel:8054156242"
                 className="border border-white hover:bg-white/10 text-white py-3 px-8 rounded-md text-lg font-medium transition duration-300 flex items-center justify-center gap-2"
               >
-                <FaPhone /> (805) 766-3299
+                <FaPhone /> (805) 415-6242
               </a>
             </div>
           </div>
