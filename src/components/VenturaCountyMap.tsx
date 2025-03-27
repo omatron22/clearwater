@@ -243,16 +243,29 @@ export default function VenturaCountyMap(): ReactElement {
     const callbackName = `initVenturaMap_${Date.now()}`;
     
     // Load Google Maps API script
-    const loadGoogleMapsAPI = (): void => {
-      // Create a unique callback function
-      window[callbackName] = initMap;
-      
-      const googleMapsScript = document.createElement('script');
-      googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&callback=${callbackName}`;
-      googleMapsScript.async = true;
-      googleMapsScript.defer = true;
-      document.head.appendChild(googleMapsScript);
-    };
+// In your VenturaCountyMap.tsx
+
+const loadGoogleMapsAPI = (): void => {
+  // Check if the script already exists
+  if (document.querySelector(`script[src*="maps.googleapis.com/maps/api"]`)) {
+    // The script is already loaded, just run initMap directly
+    window[callbackName] = initMap;
+    // Manually trigger the callback if Google Maps is already available
+    if (window.google && window.google.maps) {
+      initMap();
+    }
+    return;
+  }
+  
+  // Otherwise, load the script as you were doing
+  window[callbackName] = initMap;
+  
+  const googleMapsScript = document.createElement('script');
+  googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&callback=${callbackName}`;
+  googleMapsScript.async = true;
+  googleMapsScript.defer = true;
+  document.head.appendChild(googleMapsScript);
+};
 
     // Check if Google Maps API is already loaded
     if (typeof window.google === 'undefined') {
