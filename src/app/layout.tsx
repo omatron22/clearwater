@@ -4,7 +4,6 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ReCaptchaProvider from '@/components/ReCaptchaProvider';
-import ImagePreloader from '@/components/ImagePreloader';
 
 // Configure Inter font
 const inter = Inter({
@@ -40,7 +39,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReCaptchaProvider>
           <div className="flex min-h-screen flex-col">
-            <ImagePreloader />
             <Navbar />
             <main className="flex-grow">{children}</main>
             <Footer />
