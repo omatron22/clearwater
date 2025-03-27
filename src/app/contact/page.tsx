@@ -5,12 +5,16 @@ import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import VenturaCountyMap from '@/components/VenturaCountyMap';
 import Image from 'next/image';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 // Define proper types for form events
 type FormInputEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
 type FormSubmitEvent = React.FormEvent<HTMLFormElement>;
 
 export default function ContactPage() {
+  // Initialize reCAPTCHA hook
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -37,17 +41,30 @@ export default function ContactPage() {
   // Add proper type annotation for the event parameter
   const handleSubmit = async (e: FormSubmitEvent) => {
     e.preventDefault();
+    
+    // Validate reCAPTCHA is available
+    if (!executeRecaptcha) {
+      setErrorMessage('reCAPTCHA not available. Please try again later.');
+      return;
+    }
+    
     setIsSubmitting(true);
     setErrorMessage('');
     
     try {
-      // Send data to the API route
+      // Execute reCAPTCHA and get token
+      const recaptchaToken = await executeRecaptcha('quote_request');
+      
+      // Send data to the API route with reCAPTCHA token
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          recaptchaToken, // Include the token with the form data
+        }),
       });
       
       const result = await response.json();
@@ -336,6 +353,12 @@ export default function ContactPage() {
                   >
                     {isSubmitting ? 'Sending...' : 'Request Quote'}
                   </button>
+                  
+                  <p className="text-xs text-gray-500 mt-4 text-center">
+                    This site is protected by reCAPTCHA and the Google 
+                    <a href="https://policies.google.com/privacy" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer"> Privacy Policy</a> and
+                    <a href="https://policies.google.com/terms" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer"> Terms of Service</a> apply.
+                  </p>
                 </form>
               )}
             </motion.div>
@@ -414,8 +437,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
-
     </>
   );
 }
