@@ -23,6 +23,7 @@ export default function ContactPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Add proper type annotation for the event parameter
   const handleChange = (e: FormInputEvent) => {
@@ -34,15 +35,29 @@ export default function ContactPage() {
   };
 
   // Add proper type annotation for the event parameter
-  const handleSubmit = (e: FormSubmitEvent) => {
+  const handleSubmit = async (e: FormSubmitEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage('');
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // Send data to the API route
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send your quote request');
+      }
+      
+      // Success - show confirmation and reset form
       setIsSubmitted(true);
-      // Reset form after submission
       setFormData({
         name: '',
         email: '',
@@ -52,7 +67,13 @@ export default function ContactPage() {
         serviceType: 'weekly',
         poolSize: 'small',
       });
-    }, 1500);
+    } catch (error) {
+      // Handle error
+      console.error('Error submitting form:', error);
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to send your quote request. Please try again or call us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -195,6 +216,13 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-8">
+                  {errorMessage && (
+                    <div className="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+                      <strong className="font-bold">Error: </strong>
+                      <span className="block sm:inline">{errorMessage}</span>
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                       <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Full Name *</label>
@@ -306,7 +334,7 @@ export default function ContactPage() {
                     }`}
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Submitting...' : 'Request Quote'}
+                    {isSubmitting ? 'Sending...' : 'Request Quote'}
                   </button>
                 </form>
               )}
