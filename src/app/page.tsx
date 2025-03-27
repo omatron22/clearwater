@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FaWater, FaClipboardCheck, FaRegClock, FaUserTie, FaPhone } from 'react-icons/fa';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -12,9 +13,15 @@ export default function Home() {
         {/* Background Image - Replace with your actual pool image */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/50 z-10" />
-          {/* You'll add the actual image later */}
-          <div className="w-full h-full bg-blue-700" /> 
-        </div>
+            <Image 
+              src="/images/pool.JPG" 
+              alt="Pool before our service" 
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
+              className="object-cover"
+            />        
+          </div>
         
         <div className="container mx-auto px-4 relative z-20">
           <div className="max-w-2xl text-white">
@@ -228,33 +235,45 @@ export default function Home() {
 
       {/* Before & After */}
       <section className="py-16 md:py-24 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">See The Difference</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Our results speak for themselves. Here&apos;s what we can do for your pool.
-            </p>
-          </div>
+  <div className="container mx-auto px-4">
+    <div className="text-center mb-12">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">See The Difference</h2>
+      <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+        Our results speak for themselves. Here&apos;s what we can do for your pool.
+      </p>
+    </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                <span className="text-white text-xl font-bold">BEFORE</span>
-              </div>
-              {/* You'll add the actual image later */}
-              <div className="w-full h-full bg-gray-400" />
-            </div>
-            
-            <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
-              <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                <span className="text-white text-xl font-bold">AFTER</span>
-              </div>
-              {/* You'll add the actual image later */}
-              <div className="w-full h-full bg-blue-300" />
-            </div>
-          </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
+        <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
+          <span className="text-white text-xl font-bold">BEFORE</span>
         </div>
-      </section>
+        <Image 
+          src="/images/before2.JPG" 
+          alt="Pool before our service" 
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          priority
+          className="object-cover"
+        />
+      </div>
+      
+      <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
+        <div className="absolute inset-0 bg-black/20 flex items-center justify-center z-10">
+          <span className="text-white text-xl font-bold">AFTER</span>
+        </div>
+        <Image 
+          src="/images/after2.JPG" 
+          alt="Pool after our service" 
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          priority
+          className="object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Testimonials */}
       <section className="py-16 md:py-24">

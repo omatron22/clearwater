@@ -93,7 +93,7 @@ const Navbar = () => {
 
           {/* Phone Number - Desktop */}
           <a 
-            href="tel:8057663299" 
+            href="tel:8054156242" 
             className={`hidden md:flex items-center gap-2 ${
               scrolled 
                 ? "text-blue-600" 
@@ -101,7 +101,7 @@ const Navbar = () => {
             } transition-colors font-medium`}
           >
             <FaPhone className="text-sm" />
-            (805) 766-3299
+            (805) 415-6242
           </a>
 
           {/* Mobile Menu Button */}
@@ -152,11 +152,11 @@ const Navbar = () => {
             </Link>
             
             <a 
-              href="tel:8057663299" 
+              href="tel:8054156242" 
               className="flex items-center justify-center gap-2 my-3 py-3 px-4 bg-gray-50 text-blue-600 rounded-md"
             >
               <FaPhone />
-              (805) 766-3299
+              (805) 415-6242
             </a>
           </div>
         </div>

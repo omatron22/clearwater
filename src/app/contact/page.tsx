@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import VenturaCountyMap from '@/components/VenturaCountyMap';
+import Image from 'next/image';
 
 // Define proper types for form events
 type FormInputEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
@@ -61,9 +62,15 @@ export default function ContactPage() {
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/50 z-10" />
-          {/* You'll add the actual image later */}
-          <div className="w-full h-full bg-blue-700" />
-        </div>
+            <Image 
+              src="/images/pool.JPG" 
+              alt="Pool before our service" 
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
+              className="object-cover"
+            />            
+          </div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center text-white">
@@ -96,8 +103,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-blue-900">Phone</h3>
-                      <p className="text-gray-600 mt-1">(805) 766-3299</p>
-                      <p className="text-gray-500 text-sm mt-1">Available Monday-Friday, 8am-6pm</p>
+                      <p className="text-gray-600 mt-1">(805) 415-6242</p>
+                      <p className="text-gray-500 text-sm mt-1">Available Monday-Friday, 9am-5pm</p>
                     </div>
                   </div>
                   
@@ -256,7 +263,6 @@ export default function ContactPage() {
                         required
                       >
                         <option value="weekly">Weekly Maintenance</option>
-                        <option value="bi-weekly">Bi-Weekly Maintenance</option>
                         <option value="one-time">One-Time Cleaning</option>
                         <option value="seasonal">Seasonal Service</option>
                       </select>
@@ -324,7 +330,7 @@ export default function ContactPage() {
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h3 className="text-xl font-bold mb-3 text-blue-900">How often do you service my pool?</h3>
                 <p className="text-gray-600">
-                  We offer weekly and bi-weekly maintenance services. For most pools in Ventura County, 
+                  We offer weekly maintenance services. For most pools in Ventura County, 
                   we recommend weekly service to maintain optimal water quality and cleanliness.
                 </p>
               </div>

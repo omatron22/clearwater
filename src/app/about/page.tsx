@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaSwimmingPool, FaWater, FaLeaf, FaHandshake } from 'react-icons/fa';
 import VenturaCountyMap from '@/components/VenturaCountyMap';
+import Image from 'next/image';
 
 export default function AboutPage() {
 
@@ -15,8 +16,15 @@ export default function AboutPage() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/50 z-10" />
           {/* You'll add the actual image later */}
-          <div className="w-full h-full bg-blue-700" />
-        </div>
+          <Image 
+              src="/images/pool.JPG" 
+              alt="Pool before our service" 
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
+              className="object-cover"
+            />            
+          </div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center text-white">
@@ -39,9 +47,14 @@ export default function AboutPage() {
               viewport={{ once: true }}
             >
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
-                {/* You'll add the actual image later */}
-                <div className="bg-blue-100 w-full h-full" />
-              </div>
+                <Image 
+                    src="/images/dad2.jpeg" 
+                    alt="Pool before our service" 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                    className="object-cover"
+                />                 </div>
             </motion.div>
             
             <motion.div
@@ -53,19 +66,20 @@ export default function AboutPage() {
             >
               <h2 className="text-3xl font-bold mb-4 text-blue-900">Our Story</h2>
               <p className="text-lg text-gray-600 mb-6">
-                Clear Water Pool Service was founded with a simple mission: to provide exceptional pool maintenance 
-                services that allow pool owners to enjoy their pools without the hassle of upkeep.
-              </p>
-              <p className="text-lg text-gray-600 mb-6">
-                After years of working in the pool industry, we noticed that many pool service companies were taking 
-                on too many clients and not providing the personalized attention each pool deserves. We also saw that 
-                many companies were trying to do both maintenance and repairs, often without the proper licensing for repair work.
-              </p>
-              <p className="text-lg text-gray-600">
-                That&apos;s why Clear Water Pool Service focuses exclusively on maintenance. We do what we do best - keeping 
-                your pool water crystal clear, properly balanced, and ready for you to enjoy. By specializing in maintenance, 
-                we can provide a higher level of service at a better value for our clients throughout Ventura County.
-              </p>
+  Clear Water Pool Service was started over 15 years ago by my dad, right here in Ventura County. 
+  Built on years of hard work, early mornings, and a commitment to doing the job right. 
+  He’s earned the trust of long-time clients who know they can always count on him to show up and take care of their pools with care and consistency.
+</p>
+<p className="text-lg text-gray-600 mb-6">
+  Our goal has always been simple: take the stress out of pool care so you can actually enjoy your pool. 
+  We focus on consistent, high-quality maintenance — keeping your water clean, balanced, and swim-ready all year long.
+</p>
+<p className="text-lg text-gray-600">
+  I built this website as a small way to give back to my dad and support the business he’s poured so much into. 
+  That’s a photo of me and my siblings up above — proud to be part of a family that believes in honest work 
+  and doing things with care.
+</p>
+
             </motion.div>
           </div>
 

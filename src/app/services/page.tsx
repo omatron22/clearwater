@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaCheck } from 'react-icons/fa';
+import Image from 'next/image';
 
 export default function ServicesPage() {
   return (
@@ -12,9 +13,15 @@ export default function ServicesPage() {
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/50 z-10" />
-          {/* You'll add the actual image later */}
-          <div className="w-full h-full bg-blue-700" />
-        </div>
+          <Image 
+              src="/images/pool.JPG" 
+              alt="Pool before our service" 
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
+              className="object-cover"
+            />            
+          </div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center text-white">
@@ -38,9 +45,15 @@ export default function ServicesPage() {
               viewport={{ once: true }}
             >
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
-                {/* You'll add the actual image later */}
-                <div className="bg-blue-200 w-full h-full" />
-              </div>
+                  <Image 
+                    src="/images/pool.jpg" 
+                    alt="Pool before our service" 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                    className="object-cover"
+                  />
+                </div>
             </motion.div>
             
             <motion.div
@@ -154,8 +167,14 @@ export default function ServicesPage() {
               className="order-1 lg:order-2"
             >
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
-                {/* You'll add the actual image later */}
-                <div className="bg-green-200 w-full h-full" />
+                <Image 
+                    src="/images/pool2.jpg" 
+                    alt="Pool before our service" 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                    className="object-cover"
+                />              
               </div>
             </motion.div>
           </div>
@@ -170,7 +189,14 @@ export default function ServicesPage() {
             >
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
                 {/* You'll add the actual image later */}
-                <div className="bg-indigo-200 w-full h-full" />
+                <Image 
+                    src="/images/pool3.jpg" 
+                    alt="Pool before our service" 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                    className="object-cover"
+                />     
               </div>
             </motion.div>
             
