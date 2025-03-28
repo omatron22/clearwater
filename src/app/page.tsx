@@ -2,68 +2,101 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FaWater, FaClipboardCheck, FaRegClock, FaUserTie, FaPhone } from 'react-icons/fa';
+import { FaWater, FaClipboardCheck, FaRegClock, FaUserTie, FaPhone, FaChevronDown } from 'react-icons/fa';
 import Image from 'next/image';
 
 export default function Home() {
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center">
-        {/* Background Image - Replace with your actual pool image */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/50 z-10" />
-            <Image 
-              src="/images/pool.JPG" 
-              alt="Pool before our service" 
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
-              className="object-cover"
-            />        
-          </div>
-        
-        <div className="container mx-auto px-4 relative z-20">
-          <div className="max-w-2xl text-white">
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
-            >
-              Crystal Clear Pools, Every Time
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-xl mb-8 text-blue-50"
-            >
-              Professional pool maintenance services throughout Ventura County.
-              We focus exclusively on maintenance so you can enjoy your pool worry-free.
-            </motion.p>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <Link 
-                href="/contact" 
-                className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-md text-lg font-medium transition duration-300 text-center"
-              >
-                Get a Free Quote
-              </Link>
-              <Link 
-                href="/services" 
-                className="bg-white hover:bg-blue-50 text-blue-600 py-3 px-8 rounded-md text-lg font-medium transition duration-300 text-center"
-              >
-                Our Services
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+{/* Hero Section - Simple, centered layout */}
+<section className="relative min-h-screen flex items-center justify-center text-center">
+  {/* Background Image */}
+  <div className="absolute inset-0 z-0">
+    <div className="absolute inset-0 bg-gradient-to-b from-blue-900/70 to-blue-800/60 z-10" />
+    <Image 
+      src="/images/pool.JPG" 
+      alt="Crystal clear pool water" 
+      fill
+      sizes="100vw"
+      priority
+      className="object-cover"
+    />        
+  </div>
+
+  <div className="container mx-auto px-4 relative z-20">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="max-w-3xl mx-auto text-white"
+    >
+      <motion.h1 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
+      >
+        Clearwater Pool Service
+      </motion.h1>
+      
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="text-lg mb-8 text-blue-50"
+      >
+        Family-owned pool maintenance throughout Ventura County
+      </motion.p>
+      
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="flex flex-col sm:flex-row gap-4 justify-center"
+      >
+        <Link 
+          href="/contact" 
+          className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-md text-lg font-medium transition duration-300 text-center shadow-lg"
+        >
+          Get a Free Quote
+        </Link>
+        <Link 
+          href="/services" 
+          className="bg-white hover:bg-blue-50 text-blue-600 py-3 px-8 rounded-md text-lg font-medium transition duration-300 text-center shadow-lg"
+        >
+          Our Services
+        </Link>
+      </motion.div>
+    </motion.div>
+  </div>
+  
+{/* Fixed Scroll Indicator - Clickable and properly positioned */}
+<motion.div 
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.5, delay: 0.5 }}
+  className="absolute bottom-8 left-0 right-0 mx-auto text-white text-center z-20"
+>
+  <motion.div
+    animate={{ y: [0, 6, 0] }}
+    transition={{ 
+      duration: 2, 
+      repeat: Infinity,
+      repeatType: "loop",
+    }}
+    className="cursor-pointer p-2" 
+    onClick={() => {
+      // This will scroll to the next section
+      window.scrollTo({
+        top: window.innerHeight,
+        behavior: 'smooth'
+      });
+    }}
+  >
+    <FaChevronDown className="mx-auto text-xl" />
+  </motion.div>
+</motion.div>
+</section>
 
       {/* Why Choose Us Section */}
       <section className="py-16 md:py-24 bg-gray-50">

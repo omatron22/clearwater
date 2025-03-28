@@ -3,28 +3,54 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaPhone, FaBars, FaTimes } from 'react-icons/fa';
+import { FaPhone, FaTimes, FaWater } from 'react-icons/fa';
 
 const Navbar = () => {
+  const pathname = usePathname();
+  const isHomepage = pathname === '/';
+  
+  // Initialize with default values that work for SSR
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  const [logoVisible, setLogoVisible] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
-  // Update scrolled state on scroll
+  // Set mounted state after component mounts to avoid hydration mismatch
   useEffect(() => {
+    setMounted(true);
+    
+    // Initial state setup after mounting
+    if (isHomepage) {
+      setLogoVisible(window.scrollY > 100);
+    }
+  }, [isHomepage]);
+
+  // Update scrolled state and logo visibility on scroll
+  useEffect(() => {
+    if (!mounted) return;
+    
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 10);
+      
+      // Show logo if we're not on the homepage or if we've scrolled down
+      if (isHomepage) {
+        setLogoVisible(currentScrollY > 100);
+      } else {
+        setLogoVisible(true);
+      }
     };
     
     handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomepage, mounted]);
 
   // Close mobile menu when route changes
   useEffect(() => {
+    if (!mounted) return;
     setIsOpen(false);
-  }, [pathname]);
+  }, [pathname, mounted]);
 
   // Nav links with active state handling
   const navLinks = [
@@ -44,17 +70,24 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          {/* Logo */}
+          {/* Logo - with conditional visibility */}
           <Link href="/" className="relative z-20">
-            <div className={`font-bold text-xl md:text-2xl ${
-              scrolled || isOpen 
+            <div className={`font-bold text-xl md:text-2xl transition-all duration-300 ${
+              !mounted ? 'text-white' : // Default for SSR
+              (scrolled || isOpen 
                 ? 'text-blue-600' 
-                : 'text-white'} transition-colors`
-            }>
+                : 'text-white')} ${
+              !mounted ? '' : // Default for SSR
+              (logoVisible 
+                ? 'opacity-100' 
+                : 'opacity-0 invisible')
+            }`}
+            >
               Clear Water <span className={
-                scrolled || isOpen 
+                !mounted ? 'text-white' : // Default for SSR
+                (scrolled || isOpen 
                   ? 'text-blue-900' 
-                  : 'text-white'
+                  : 'text-white')
               }>Pool Service</span>
             </div>
           </Link>
@@ -114,7 +147,7 @@ const Navbar = () => {
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+            {isOpen ? <FaTimes size={24} /> : <FaWater size={24} />}
           </button>
         </div>
 
