@@ -1,10 +1,34 @@
 'use client';
 
 import Link from 'next/link';
-import { FaWater, FaClipboardCheck, FaRegClock, FaUserTie, FaPhone, FaChevronDown } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaWater, FaClipboardCheck, FaRegClock, FaUserTie, FaPhone, FaChevronDown, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Image from 'next/image';
 
 export default function Home() {
+  // State to track current before/after image set
+  const [currentImageSet, setCurrentImageSet] = useState(0);
+  
+  // Define the before/after image sets
+  const beforeAfterSets = [
+    { before: '/images/before2.JPG', after: '/images/after2.JPG' },
+    { before: '/images/before.jpeg', after: '/images/after.jpeg' },
+    { before: '/images/before3.jpeg', after: '/images/after3.jpeg' },
+  ];
+  
+  // Navigation handlers
+  const goToPrevious = () => {
+    setCurrentImageSet((prev) => 
+      prev === 0 ? beforeAfterSets.length - 1 : prev - 1
+    );
+  };
+  
+  const goToNext = () => {
+    setCurrentImageSet((prev) => 
+      prev === beforeAfterSets.length - 1 ? 0 : prev + 1
+    );
+  };
+
   return (
     <>
       {/* Hero Section with stylized text and emphasized buttons */}
@@ -78,7 +102,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Why Choose Clear Water Pool Service</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              We focus exclusively on pool maintenance, not repairs, to give you the best service possible
+              We focus exclusively on making sure your pool is clean, safe, and ready for you to enjoy.
             </p>
           </div>
 
@@ -90,7 +114,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-blue-900">Expertise</h3>
               <p className="text-gray-600">
-                Our technicians are trained in the latest pool maintenance techniques and water chemistry.
+                We&apos;re trained in the latest pool maintenance techniques and water chemistry.
               </p>
             </div>
 
@@ -216,7 +240,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Before & After */}
+      {/* Before & After with Navigation Arrows */}
       <section className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -226,34 +250,69 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
-                <span className="text-white text-xl font-bold">BEFORE</span>
+          <div className="flex items-center">
+            {/* Left Arrow */}
+            <button 
+              onClick={goToPrevious}
+              className="text-blue-600 hover:text-blue-800 p-2 mr-2 z-10 transition-transform duration-200 hover:scale-125"
+              aria-label="Previous image set"
+            >
+              <FaChevronLeft className="w-6 h-6" />
+            </button>
+            
+            {/* Before and After Images */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 flex-grow">
+              <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
+                  <span className="text-white text-xl font-bold">BEFORE</span>
+                </div>
+                <Image 
+                  src={beforeAfterSets[currentImageSet].before} 
+                  alt="Pool before our service" 
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
+                  className="object-cover"
+                />
               </div>
-              <Image 
-                src="/images/before2.JPG" 
-                alt="Pool before our service" 
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-                className="object-cover"
-              />
+              
+              <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
+                <div className="absolute inset-0 bg-black/20 flex items-center justify-center z-10">
+                  <span className="text-white text-xl font-bold">AFTER</span>
+                </div>
+                <Image 
+                  src={beforeAfterSets[currentImageSet].after} 
+                  alt="Pool after our service" 
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
+                  className="object-cover"
+                />
+              </div>
             </div>
             
-            <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
-              <div className="absolute inset-0 bg-black/20 flex items-center justify-center z-10">
-                <span className="text-white text-xl font-bold">AFTER</span>
-              </div>
-              <Image 
-                src="/images/after2.JPG" 
-                alt="Pool after our service" 
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-                className="object-cover"
+            {/* Right Arrow */}
+            <button 
+              onClick={goToNext}
+              className="text-blue-600 hover:text-blue-800 p-2 ml-2 z-10 transition-transform duration-200 hover:scale-125"
+              aria-label="Next image set"
+            >
+              <FaChevronRight className="w-6 h-6" />
+            </button>
+          </div>
+          
+          {/* Dots indicator (optional) */}
+          <div className="flex justify-center mt-6">
+            {beforeAfterSets.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentImageSet(index)}
+                className={`w-3 h-3 mx-1 rounded-full ${
+                  index === currentImageSet ? 'bg-blue-600' : 'bg-gray-300'
+                }`}
+                aria-label={`Go to image set ${index + 1}`}
               />
-            </div>
+            ))}
           </div>
         </div>
       </section>

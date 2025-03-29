@@ -173,7 +173,7 @@ export default function ContactPage() {
                     <svg className="w-5 h-5 text-green-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
                     </svg>
-                    <span>Specialized focus on maintenance, not repairs</span>
+                    <span>Specialized focus on full service</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-green-500 mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20">
@@ -417,14 +417,6 @@ export default function ContactPage() {
                 <p className="text-gray-600">
                   No, you don&apos;t need to be home. As long as we have access to your pool area, 
                   we can perform our service while you&apos;re away. We&apos;ll leave a service report detailing what was done.
-                </p>
-              </div>
-              
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-xl font-bold mb-3 text-blue-900">Do you offer pool repairs?</h3>
-                <p className="text-gray-600">
-                  We focus exclusively on pool maintenance rather than repairs. This allows us to specialize in keeping your 
-                  water pristine without requiring costly licensing for repair work. For repairs, we can recommend trusted partners.
                 </p>
               </div>
               

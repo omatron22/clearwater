@@ -222,9 +222,7 @@ export default function ServicesPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Additional Services</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              While we focus on maintenance rather than repairs, we offer these additional services to keep your pool in top condition
-            </p>
+
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
