@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, ReactElement } from 'react';
+import { useEffect, useRef, useState, ReactElement, useCallback } from 'react';
 
 // Define proper interfaces for Google Maps types
 interface LatLng {
@@ -91,6 +91,7 @@ interface MarkerOptions {
 
 interface GoogleMarker {
   addListener: (event: string, handler: () => void) => void;
+  setMap: (map: GoogleMap | null) => void;
 }
 
 interface InfoWindowOptions {
@@ -118,6 +119,7 @@ declare global {
         };
       };
     };
+    initMap?: () => void;
   }
 }
 
@@ -139,6 +141,10 @@ const serviceAreas: Array<{ name: string } & LatLng> = [
 
 export default function VenturaCountyMap(): ReactElement {
   const mapRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [mapError, setMapError] = useState(false);
+  const googleMapRef = useRef<GoogleMap | null>(null);
+  const markersRef = useRef<GoogleMarker[]>([]);
   
   // Define bounds outside of the useEffect to avoid the dependency warning
   const venturaBounds: MapBounds = {
@@ -148,11 +154,16 @@ export default function VenturaCountyMap(): ReactElement {
     east: -118.6303, // Eastern boundary
   };
 
-  useEffect(() => {
-    // Initialize the map
-    const initMap = (): void => {
-      if (!mapRef.current || !window.google) return;
+  // Initialize the map - kept separate for clarity and reusability
+  const initMap = useCallback((): void => {
+    if (!mapRef.current || !window.google || !window.google.maps) {
+      console.warn('Google Maps not loaded or map container not ready');
+      setMapError(true);
+      setIsLoading(false);
+      return;
+    }
 
+    try {
       // Create the map centered on Ventura County
       const map = new window.google.maps.Map(mapRef.current, {
         center: { lat: 34.3705, lng: -119.1391 }, // Center of Ventura County
@@ -173,6 +184,9 @@ export default function VenturaCountyMap(): ReactElement {
         ]
       });
 
+      // Store the map reference
+      googleMapRef.current = map;
+
       // Add county boundary using the Data layer
       if (map.data) {
         // Use the Data API to load Ventura County's boundaries from a GeoJSON file
@@ -183,19 +197,21 @@ export default function VenturaCountyMap(): ReactElement {
           {},
           () => {
             // Style the county layer to highlight only Ventura County
-            map.data?.setStyle((feature) => {
-              // Check if this is Ventura County
-              const isVenturaCounty = feature.getProperty('NAME') === 'Ventura';
-              
-              return {
-                fillColor: isVenturaCounty ? '#3b82f6' : 'transparent',
-                fillOpacity: isVenturaCounty ? 0.15 : 0,
-                strokeColor: isVenturaCounty ? '#3b82f6' : 'transparent',
-                strokeWeight: isVenturaCounty ? 2 : 0,
-                strokeOpacity: isVenturaCounty ? 0.8 : 0,
-                visible: isVenturaCounty
-              };
-            });
+            if (map.data) {
+              map.data.setStyle((feature) => {
+                // Check if this is Ventura County
+                const isVenturaCounty = feature.getProperty('NAME') === 'Ventura';
+                
+                return {
+                  fillColor: isVenturaCounty ? '#3b82f6' : 'transparent',
+                  fillOpacity: isVenturaCounty ? 0.15 : 0,
+                  strokeColor: isVenturaCounty ? '#3b82f6' : 'transparent',
+                  strokeWeight: isVenturaCounty ? 2 : 0,
+                  strokeOpacity: isVenturaCounty ? 0.8 : 0,
+                  visible: isVenturaCounty
+                };
+              });
+            }
           }
         );
       }
@@ -210,6 +226,12 @@ export default function VenturaCountyMap(): ReactElement {
         scale: 8
       };
 
+      // Clear any existing markers
+      markersRef.current.forEach(marker => {
+        marker.setMap(null);
+      });
+      markersRef.current = [];
+
       // Add markers for each service area
       serviceAreas.forEach(area => {
         const marker = new window.google.maps.Marker({
@@ -219,6 +241,9 @@ export default function VenturaCountyMap(): ReactElement {
           icon: circleSymbol,
           animation: window.google.maps.Animation.DROP
         });
+
+        // Store marker reference
+        markersRef.current.push(marker);
 
         // Add info window for each marker
         const infoWindow = new window.google.maps.InfoWindow({
@@ -237,63 +262,134 @@ export default function VenturaCountyMap(): ReactElement {
           strictBounds: false,
         }
       });
+
+      // Mark loading as complete
+      setIsLoading(false);
+      setMapError(false);
+    } catch (error) {
+      console.error('Error initializing map:', error);
+      setMapError(true);
+      setIsLoading(false);
+    }
+  }, [venturaBounds]);
+
+  useEffect(() => {
+    // Make initMap accessible globally for the callback
+    window.initMap = initMap;
+
+    // Function to load Google Maps API with better error handling
+    const loadGoogleMapsAPI = () => {
+      // If script already exists in the document
+      if (document.querySelector(`script[src*="maps.googleapis.com/maps/api"]`)) {
+        // Check if Google Maps is already available
+        if (window.google && window.google.maps) {
+          initMap();
+        } else {
+          // Set a backup timeout in case the callback doesn't fire
+          const timeoutId = setTimeout(() => {
+            if (isLoading) {
+              console.warn('Google Maps API callback did not fire within timeout, attempting to initialize map directly');
+              initMap();
+            }
+          }, 5000);
+          
+          return () => clearTimeout(timeoutId);
+        }
+        return undefined; // Return undefined to match expected return type
+      }
+      
+      // Create script element to load Google Maps API
+      const googleMapsScript = document.createElement('script');
+      const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
+      
+      googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+      googleMapsScript.async = true;
+      googleMapsScript.defer = true;
+      
+      // Add error handling to the script
+      googleMapsScript.onerror = () => {
+        console.error('Failed to load Google Maps API script');
+        setMapError(true);
+        setIsLoading(false);
+      };
+      
+      document.head.appendChild(googleMapsScript);
+      
+      // Set a backup timeout in case the callback doesn't fire
+      const timeoutId = setTimeout(() => {
+        if (isLoading) {
+          console.warn('Google Maps API did not load within timeout');
+          setMapError(true);
+          setIsLoading(false);
+        }
+      }, 10000); // 10 seconds timeout
+      
+      return () => clearTimeout(timeoutId);
     };
 
-    // Create a unique callback name
-    const callbackName = `initVenturaMap_${Date.now()}`;
-    
-    // Load Google Maps API script
-// In your VenturaCountyMap.tsx
+    const cleanup = loadGoogleMapsAPI();
 
-const loadGoogleMapsAPI = (): void => {
-  // Check if the script already exists
-  if (document.querySelector(`script[src*="maps.googleapis.com/maps/api"]`)) {
-    // The script is already loaded, just run initMap directly
-    window[callbackName] = initMap;
-    // Manually trigger the callback if Google Maps is already available
-    if (window.google && window.google.maps) {
-      initMap();
-    }
-    return;
-  }
-  
-  // Otherwise, load the script as you were doing
-  window[callbackName] = initMap;
-  
-  const googleMapsScript = document.createElement('script');
-  googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&callback=${callbackName}`;
-  googleMapsScript.async = true;
-  googleMapsScript.defer = true;
-  document.head.appendChild(googleMapsScript);
-};
-
-    // Check if Google Maps API is already loaded
-    if (typeof window.google === 'undefined') {
-      loadGoogleMapsAPI();
-    } else {
-      initMap();
-    }
-
-    // Clean up
+    // Clean up function
     return () => {
-      // Remove the specific callback we created
-      if (window[callbackName]) {
-        delete window[callbackName];
+      // Clean up global function
+      if (window.initMap) {
+        delete window.initMap;
+      }
+      
+      // Clean up markers if they exist
+      if (markersRef.current.length > 0) {
+        markersRef.current.forEach(marker => {
+          marker.setMap(null);
+        });
+      }
+
+      // Execute the cleanup function if it exists
+      if (cleanup) {
+        cleanup();
       }
     };
-  }, []); // No dependencies needed as venturaBounds is defined outside
+  }, [initMap, isLoading]); // Added dependencies
 
+  // Render the map or loading/error states
   return (
     <div className="space-y-4">
       {/* Map Container */}
       <div className="relative">
+        {isLoading && (
+          <div className="absolute inset-0 bg-blue-50 flex items-center justify-center z-10 rounded-xl">
+            <div className="text-center">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-600 mb-2"></div>
+              <p className="text-blue-900">Loading map...</p>
+            </div>
+          </div>
+        )}
+        
+        {mapError && (
+          <div className="absolute inset-0 bg-red-50 flex items-center justify-center z-10 rounded-xl">
+            <div className="text-center p-6">
+              <div className="text-red-500 text-4xl mb-2">!</div>
+              <p className="text-red-700 font-medium">We couldn&apos;t load the map</p>
+              <button 
+                onClick={() => {
+                  setIsLoading(true);
+                  setMapError(false);
+                  initMap();
+                }}
+                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm"
+              >
+                Try Again
+              </button>
+            </div>
+          </div>
+        )}
+        
         <div 
           ref={mapRef} 
           className="h-96 w-full rounded-xl shadow-lg bg-blue-50"
         />
       </div>
       
-      {/* Service Areas Legend - Moved below the map */}
+      {/* Service Areas Legend - Below the map */}
       <div className="bg-white py-3 px-4 rounded-lg shadow-md text-sm">
         <p className="font-bold text-blue-900 mb-2">Areas We Serve:</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-1 text-gray-600">

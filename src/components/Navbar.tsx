@@ -7,44 +7,15 @@ import { FaPhone, FaTimes, FaWater } from 'react-icons/fa';
 
 const Navbar = () => {
   const pathname = usePathname();
-  const isHomepage = pathname === '/';
   
   // Initialize with default values that work for SSR
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [logoVisible, setLogoVisible] = useState(true);
   const [mounted, setMounted] = useState(false);
 
   // Set mounted state after component mounts to avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
-    
-    // Initial state setup after mounting
-    if (isHomepage) {
-      setLogoVisible(window.scrollY > 100);
-    }
-  }, [isHomepage]);
-
-  // Update scrolled state and logo visibility on scroll
-  useEffect(() => {
-    if (!mounted) return;
-    
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setScrolled(currentScrollY > 10);
-      
-      // Show logo if we're not on the homepage or if we've scrolled down
-      if (isHomepage) {
-        setLogoVisible(currentScrollY > 100);
-      } else {
-        setLogoVisible(true);
-      }
-    };
-    
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomepage, mounted]);
+  }, []);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -61,34 +32,14 @@ const Navbar = () => {
   ];
 
   return (
-    <nav 
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled || isOpen 
-          ? 'bg-white shadow-md py-2' 
-          : 'bg-transparent py-4'
-      }`}
-    >
+    <nav className="fixed w-full z-50 bg-white shadow-md py-2">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          {/* Logo - with conditional visibility */}
+          {/* Logo - always with blue colors */}
           <Link href="/" className="relative z-20">
-            <div className={`font-bold text-xl md:text-2xl transition-all duration-300 ${
-              !mounted ? 'text-white' : // Default for SSR
-              (scrolled || isOpen 
-                ? 'text-blue-600' 
-                : 'text-white')} ${
-              !mounted ? '' : // Default for SSR
-              (logoVisible 
-                ? 'opacity-100' 
-                : 'opacity-0 invisible')
-            }`}
-            >
-              Clear Water <span className={
-                !mounted ? 'text-white' : // Default for SSR
-                (scrolled || isOpen 
-                  ? 'text-blue-900' 
-                  : 'text-white')
-              }>Pool Service</span>
+            <div className="font-bold text-xl md:text-2xl">
+              <span className="text-blue-600">Clear Water</span>
+              <span className="text-blue-900"> Pool Service</span>
             </div>
           </Link>
 
@@ -102,36 +53,20 @@ const Navbar = () => {
                   href={link.href} 
                   className={`px-4 py-2 rounded-md transition-all ${
                     isActive 
-                      ? (scrolled ? 'text-blue-600 bg-blue-50 font-medium' : 'text-white bg-white/20') 
-                      : (scrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:bg-white/10')
+                      ? 'text-blue-600 bg-blue-50 font-medium' 
+                      : 'text-gray-700 hover:text-blue-600'
                   }`}
                 >
                   {link.label}
                 </Link>
               );
             })}
-
-            {/* Contact Button */}
-            <Link
-              href="/contact"
-              className={`ml-3 px-4 py-2 rounded-md ${
-                scrolled 
-                  ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                  : 'bg-white hover:bg-blue-50 text-blue-600'
-              } transition-all font-medium`}
-            >
-              Request a Quote
-            </Link>
           </div>
 
           {/* Phone Number - Desktop */}
           <a 
             href="tel:8054156242" 
-            className={`hidden md:flex items-center gap-2 ${
-              scrolled 
-                ? "text-blue-600" 
-                : "text-white"
-            } transition-colors font-medium`}
+            className="hidden md:flex items-center gap-2 text-blue-600 font-medium"
           >
             <FaPhone className="text-sm" />
             (805) 415-6242
@@ -142,7 +77,7 @@ const Navbar = () => {
             className={`md:hidden p-2 rounded-md ${
               isOpen 
                 ? 'bg-gray-100 text-gray-700' 
-                : (scrolled ? 'text-blue-600' : 'text-white')
+                : 'text-blue-600'
             }`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
@@ -176,13 +111,6 @@ const Navbar = () => {
                 </Link>
               );
             })}
-            
-            <Link
-              href="/contact"
-              className="block py-3 px-4 my-3 bg-blue-600 text-white text-center rounded-md"
-            >
-              Request a Quote
-            </Link>
             
             <a 
               href="tel:8054156242" 

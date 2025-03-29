@@ -1,102 +1,76 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { FaWater, FaClipboardCheck, FaRegClock, FaUserTie, FaPhone, FaChevronDown } from 'react-icons/fa';
 import Image from 'next/image';
 
 export default function Home() {
   return (
     <>
-{/* Hero Section - Simple, centered layout */}
-<section className="relative min-h-screen flex items-center justify-center text-center">
-  {/* Background Image */}
-  <div className="absolute inset-0 z-0">
-    <div className="absolute inset-0 bg-gradient-to-b from-blue-900/70 to-blue-800/60 z-10" />
-    <Image 
-      src="/images/pool.JPG" 
-      alt="Crystal clear pool water" 
-      fill
-      sizes="100vw"
-      priority
-      className="object-cover"
-    />        
-  </div>
+      {/* Hero Section with stylized text and emphasized buttons */}
+      <section className="relative min-h-screen flex items-center justify-center text-center">
+        {/* Background Image with darker overlay */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/50 z-10" />
+          <Image 
+            src="/images/pool.JPG" 
+            alt="Crystal clear pool water" 
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover"
+          />        
+        </div>
 
-  <div className="container mx-auto px-4 relative z-20">
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="max-w-3xl mx-auto text-white"
-    >
-      <motion.h1 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
-      >
-        Clearwater Pool Service
-      </motion.h1>
-      
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-lg mb-8 text-blue-50"
-      >
-        Family-owned pool maintenance throughout Ventura County
-      </motion.p>
-      
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="flex flex-col sm:flex-row gap-4 justify-center"
-      >
-        <Link 
-          href="/contact" 
-          className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-md text-lg font-medium transition duration-300 text-center shadow-lg"
-        >
-          Get a Free Quote
-        </Link>
-        <Link 
-          href="/services" 
-          className="bg-white hover:bg-blue-50 text-blue-600 py-3 px-8 rounded-md text-lg font-medium transition duration-300 text-center shadow-lg"
-        >
-          Our Services
-        </Link>
-      </motion.div>
-    </motion.div>
-  </div>
-  
-{/* Fixed Scroll Indicator - Clickable and properly positioned */}
-<motion.div 
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 0.5, delay: 0.5 }}
-  className="absolute bottom-8 left-0 right-0 mx-auto text-white text-center z-20"
->
-  <motion.div
-    animate={{ y: [0, 6, 0] }}
-    transition={{ 
-      duration: 2, 
-      repeat: Infinity,
-      repeatType: "loop",
-    }}
-    className="cursor-pointer p-2" 
-    onClick={() => {
-      // This will scroll to the next section
-      window.scrollTo({
-        top: window.innerHeight,
-        behavior: 'smooth'
-      });
-    }}
-  >
-    <FaChevronDown className="mx-auto text-xl" />
-  </motion.div>
-</motion.div>
-</section>
+        <div className="container mx-auto px-4 relative z-20">
+          <div className="max-w-3xl mx-auto">
+            {/* Stylized heading with color variations and text-shadow for outline effect */}
+            <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight tracking-tight">
+              <span className="text-white">Pool & Spa</span><br />
+              <span className="text-white">Cleaning </span>
+              <span className="text-white">Services</span>
+            </h1>
+            
+            {/* Brief subheading */}
+            <p className="text-xl mb-8 text-white max-w-2xl mx-auto">
+              Professional maintenance throughout Ventura County for 15+ years
+            </p>
+            
+            {/* Larger, more prominent buttons */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center mt-10">
+              <Link 
+                href="/contact" 
+                className="bg-blue-600 hover:bg-blue-700 text-white py-4 px-10 rounded-md text-xl font-medium transition duration-300 text-center shadow-xl hover:scale-105"
+              >
+                Get a Free Quote
+              </Link>
+              <Link 
+                href="/services" 
+                className="bg-white hover:bg-blue-50 text-blue-600 py-4 px-10 rounded-md text-xl font-medium transition duration-300 text-center shadow-xl hover:scale-105"
+              >
+                Our Services
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        
+        {/* Fixed Scroll Indicator with CSS animation */}
+        <div className="absolute bottom-8 left-0 right-0 mx-auto text-white text-center z-20">
+          <div
+            className="cursor-pointer p-2 animate-bounce"
+            onClick={() => {
+              // This will scroll to the next section
+              window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+              });
+            }}
+          >
+            <FaChevronDown className="mx-auto text-xl" />
+          </div>
+        </div>
+      </section>
 
       {/* Why Choose Us Section */}
       <section className="py-16 md:py-24 bg-gray-50">
@@ -110,13 +84,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Feature 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            >
+            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
               <div className="text-blue-600 mb-4">
                 <FaWater className="w-6 h-6" />
               </div>
@@ -124,16 +92,10 @@ export default function Home() {
               <p className="text-gray-600">
                 Our technicians are trained in the latest pool maintenance techniques and water chemistry.
               </p>
-            </motion.div>
+            </div>
 
             {/* Feature 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            >
+            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
               <div className="text-blue-600 mb-4">
                 <FaClipboardCheck className="w-6 h-6" />
               </div>
@@ -141,16 +103,10 @@ export default function Home() {
               <p className="text-gray-600">
                 We never cut corners and ensure every pool receives the thorough attention it deserves.
               </p>
-            </motion.div>
+            </div>
 
             {/* Feature 3 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            >
+            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
               <div className="text-blue-600 mb-4">
                 <FaRegClock className="w-6 h-6" />
               </div>
@@ -158,16 +114,10 @@ export default function Home() {
               <p className="text-gray-600">
                 You can count on us to show up as scheduled and provide consistent service every time.
               </p>
-            </motion.div>
+            </div>
 
             {/* Feature 4 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            >
+            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
               <div className="text-blue-600 mb-4">
                 <FaUserTie className="w-6 h-6" />
               </div>
@@ -175,7 +125,7 @@ export default function Home() {
               <p className="text-gray-600">
                 Every pool is unique, so we customize our service to fit the specific needs of your pool.
               </p>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -192,13 +142,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Service 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="bg-white rounded-lg shadow-lg overflow-hidden"
-            >
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="p-8">
                 <div className="text-blue-600 mb-4">
                   <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -216,16 +160,10 @@ export default function Home() {
                   Learn More →
                 </Link>
               </div>
-            </motion.div>
+            </div>
 
             {/* Service 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="bg-white rounded-lg shadow-lg overflow-hidden"
-            >
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="p-8">
                 <div className="text-blue-600 mb-4">
                   <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -243,16 +181,10 @@ export default function Home() {
                   Learn More →
                 </Link>
               </div>
-            </motion.div>
+            </div>
 
             {/* Service 3 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="bg-white rounded-lg shadow-lg overflow-hidden"
-            >
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="p-8">
                 <div className="text-blue-600 mb-4">
                   <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -270,7 +202,7 @@ export default function Home() {
                   Learn More →
                 </Link>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           <div className="text-center mt-12">
@@ -295,13 +227,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="relative h-80 rounded-lg overflow-hidden shadow-lg"
-            >
+            <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
               <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
                 <span className="text-white text-xl font-bold">BEFORE</span>
               </div>
@@ -313,15 +239,9 @@ export default function Home() {
                 priority
                 className="object-cover"
               />
-            </motion.div>
+            </div>
             
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="relative h-80 rounded-lg overflow-hidden shadow-lg"
-            >
+            <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
               <div className="absolute inset-0 bg-black/20 flex items-center justify-center z-10">
                 <span className="text-white text-xl font-bold">AFTER</span>
               </div>
@@ -333,7 +253,7 @@ export default function Home() {
                 priority
                 className="object-cover"
               />
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -350,13 +270,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Testimonial 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="bg-white p-8 rounded-lg shadow-md"
-            >
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <svg className="text-blue-200 w-10 h-10 mb-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
               </svg>
@@ -365,16 +279,10 @@ export default function Home() {
               </p>
               <div className="font-bold text-blue-900">Sarah Johnson</div>
               <div className="text-sm text-gray-500">Ventura</div>
-            </motion.div>
+            </div>
 
             {/* Testimonial 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="bg-white p-8 rounded-lg shadow-md"
-            >
+            <div className="bg-white p-8 rounded-lg shadow-md">
               <svg className="text-blue-200 w-10 h-10 mb-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
               </svg>
@@ -383,7 +291,7 @@ export default function Home() {
               </p>
               <div className="font-bold text-blue-900">Michael Rodriguez</div>
               <div className="text-sm text-gray-500">Oxnard</div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>

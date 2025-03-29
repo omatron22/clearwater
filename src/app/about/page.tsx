@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaSwimmingPool, FaWater, FaLeaf, FaHandshake } from 'react-icons/fa';
 import Image from 'next/image';
@@ -38,12 +37,7 @@ export default function AboutPage() {
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-            >
+            <div>
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
                 <Image 
                     src="/images/dad2.jpeg" 
@@ -54,15 +48,9 @@ export default function AboutPage() {
                     className="object-cover"
                 />
               </div>
-            </motion.div>
+            </div>
             
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="flex flex-col justify-center"
-            >
+            <div className="flex flex-col justify-center">
               <h2 className="text-3xl font-bold mb-4 text-blue-900">Our Story</h2>
               <p className="text-lg text-gray-600 mb-6">
                 Clear Water Pool Service was started over 15 years ago by my dad, right here in Ventura County. 
@@ -78,40 +66,22 @@ export default function AboutPage() {
                 That&apos;s a photo of me and my siblings up above — proud to be part of a family that believes in honest work 
                 and doing things with care.
               </p>
-            </motion.div>
+            </div>
           </div>
 
           {/* Our Values */}
           <div className="py-16">
             <div className="text-center mb-12">
-              <motion.h2 
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
-                className="text-3xl md:text-4xl font-bold mb-4 text-blue-900"
-              >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">
                 Our Values
-              </motion.h2>
-              <motion.p 
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
-                className="text-lg text-gray-600 max-w-3xl mx-auto"
-              >
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 The principles that guide everything we do
-              </motion.p>
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-                className="bg-white rounded-lg shadow-lg p-8 text-center h-full"
-              >
+              <div className="bg-white rounded-lg shadow-lg p-8 text-center h-full">
                 <div className="text-blue-600 mx-auto mb-4">
                   <FaSwimmingPool className="w-12 h-12 mx-auto" />
                 </div>
@@ -119,15 +89,9 @@ export default function AboutPage() {
                 <p className="text-gray-600">
                   We stay up-to-date on the latest pool maintenance techniques and water chemistry to provide expert care for your pool.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-                className="bg-white rounded-lg shadow-lg p-8 text-center h-full"
-              >
+              <div className="bg-white rounded-lg shadow-lg p-8 text-center h-full">
                 <div className="text-blue-600 mx-auto mb-4">
                   <FaWater className="w-12 h-12 mx-auto" />
                 </div>
@@ -135,15 +99,9 @@ export default function AboutPage() {
                 <p className="text-gray-600">
                   We never cut corners. Every pool we service receives the thorough attention and care it needs to look its best.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-                className="bg-white rounded-lg shadow-lg p-8 text-center h-full"
-              >
+              <div className="bg-white rounded-lg shadow-lg p-8 text-center h-full">
                 <div className="text-blue-600 mx-auto mb-4">
                   <FaHandshake className="w-12 h-12 mx-auto" />
                 </div>
@@ -151,15 +109,9 @@ export default function AboutPage() {
                 <p className="text-gray-600">
                   You can count on us to show up as scheduled and provide consistent service that keeps your pool in perfect condition.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-                className="bg-white rounded-lg shadow-lg p-8 text-center h-full"
-              >
+              <div className="bg-white rounded-lg shadow-lg p-8 text-center h-full">
                 <div className="text-blue-600 mx-auto mb-4">
                   <FaLeaf className="w-12 h-12 mx-auto" />
                 </div>
@@ -167,7 +119,7 @@ export default function AboutPage() {
                 <p className="text-gray-600">
                   We use eco-friendly practices and products whenever possible to minimize environmental impact while maintaining pool health.
                 </p>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
@@ -177,22 +129,10 @@ export default function AboutPage() {
       <section className="py-16 bg-blue-50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <motion.h2 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
-              className="text-3xl md:text-4xl font-bold mb-8 text-blue-900"
-            >
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-blue-900">
               Our Mission
-            </motion.h2>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px", amount: 0.3 }}
-              className="text-xl text-gray-600 bg-white p-8 rounded-xl shadow-md relative"
-            >
+            </h2>
+            <div className="text-xl text-gray-600 bg-white p-8 rounded-xl shadow-md relative">
               <svg className="text-blue-600 w-16 h-16 absolute -top-6 -left-6 opacity-20" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
               </svg>
@@ -207,7 +147,7 @@ export default function AboutPage() {
               <svg className="text-blue-600 w-16 h-16 absolute -bottom-6 -right-6 opacity-20 transform rotate-180" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
               </svg>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -216,37 +156,20 @@ export default function AboutPage() {
       <section className="py-16 bg-blue-900 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <motion.h2 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
-              className="text-3xl md:text-4xl font-bold mb-6"
-            >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Let&apos;s Work Together
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
-              className="text-xl mb-8 max-w-2xl mx-auto"
-            >
+            </h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto">
               Ready to experience the Clear Water difference? Contact us today for a free quote and join our family of satisfied customers.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              viewport={{ once: true, margin: "0px 0px -50px 0px", amount: 0.5 }}
-            >
+            </p>
+            <div>
               <Link
                 href="/contact"
                 className="bg-white text-blue-900 hover:bg-blue-100 font-bold py-3 px-8 rounded-md text-lg transition duration-300 inline-block"
               >
                 Get Your Free Quote
               </Link>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
