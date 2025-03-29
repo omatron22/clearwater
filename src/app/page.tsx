@@ -37,7 +37,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/50 z-10" />
           <Image 
-            src="/images/pool.JPG" 
+            src="/images/pool.jpg" 
             alt="Crystal clear pool water" 
             fill
             sizes="100vw"

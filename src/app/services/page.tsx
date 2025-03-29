@@ -13,7 +13,7 @@ export default function ServicesPage() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/50 z-10" />
           <Image 
-              src="/images/pool.JPG" 
+              src="/images/pool.jpg" 
               alt="Pool before our service" 
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -160,7 +160,7 @@ export default function ServicesPage() {
             <div>
               <div className="relative h-96 rounded-xl overflow-hidden shadow-xl">
                 <Image 
-                    src="/images/pool3.jpg" 
+                    src="/images/pool3.JPG" 
                     alt="Pool before our service" 
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
