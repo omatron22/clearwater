@@ -39,7 +39,7 @@ const Navbar = () => {
           <Link href="/" className="relative z-20">
             <div className="font-bold text-xl md:text-2xl">
               <span className="text-blue-600">Clear Water</span>
-              <span className="text-blue-900"> Pool Service</span>
+              <span className="text-blue-900"> Pool & Spa Service</span>
             </div>
           </Link>
 
