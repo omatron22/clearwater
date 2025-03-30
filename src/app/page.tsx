@@ -31,7 +31,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero Section with stylized text and emphasized buttons */}
+      {/* Hero Section with logo and emphasized buttons */}
       <section className="relative min-h-screen flex items-center justify-center text-center">
         {/* Background Image with darker overlay */}
         <div className="absolute inset-0 z-0">
@@ -47,16 +47,23 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-4 relative z-20">
-          <div className="max-w-3xl mx-auto">
-            {/* Stylized heading with color variations and text-shadow for outline effect */}
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight tracking-tight">
-              <span className="text-white">Pool & Spa</span><br />
-              <span className="text-white">Cleaning </span>
-              <span className="text-white">Services</span>
-            </h1>
+          <div className="max-w-4xl mx-auto">
+            {/* Logo Image - larger size */}
+            <div className="mb-10 flex justify-center">
+              <div className="w-full md:w-4/5 lg:w-3/4">
+                <Image 
+                  src="/images/logo.png" 
+                  alt="Company Logo" 
+                  width={800} 
+                  height={400} 
+                  className="h-auto w-full" 
+                  priority
+                />
+              </div>
+            </div>
             
             {/* Brief subheading */}
-            <p className="text-xl mb-8 text-white max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl mb-8 text-white max-w-2xl mx-auto font-medium">
               Professional maintenance throughout Ventura County for 15+ years
             </p>
             
@@ -78,7 +85,6 @@ export default function Home() {
           </div>
         </div>
 
-        
         {/* Fixed Scroll Indicator with CSS animation */}
         <div className="absolute bottom-8 left-0 right-0 mx-auto text-white text-center z-20">
           <div
